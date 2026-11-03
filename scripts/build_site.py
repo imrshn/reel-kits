@@ -166,7 +166,6 @@ def build_kit(k: dict) -> str:
     og = BASE + k.get("og_image", "assets/og-default.png")
     sections = k.get("sections", [])
     dl = k.get("download")
-    laptop = bool(dl and dl.get("laptop_only"))
     tabs = [f'<a class="home" href="../" aria-label="All kits">{ICON_HOME}</a>']
     tabs += [f'<a href="#{esc(s["id"])}"{' class="on"' if i == 0 else ''}>{esc(s.get("tab", s["type"].title()))}</a>' for i, s in enumerate(sections)]
     body = []
@@ -179,12 +178,9 @@ def build_kit(k: dict) -> str:
             all_prompts += [f'{p["title"]}\n{prompt_plain(p["text"])}' for p in s["items"]]
         else:
             body.append(RENDER[s["type"]](s))
-    share = f'<button class="btn light{" only-desk" if laptop else ""}" type="button" data-share="{esc(k["name"])}">{ICON_SHARE}Share</button>'
+    share = f'<button class="btn light" type="button" data-share="{esc(k["name"])}">{ICON_SHARE}Share</button>'
     if dl:
-        dock = f'<a class="btn" href="{esc(dl["url"])}">{ICON_DOWNLOAD}{esc(dl.get("label", "Download full kit"))}</a>'
-        if laptop:
-            dock += f'<button class="btn light only-touch" type="button" data-share="{esc(k["name"])}: open this on my laptop">{ICON_LAPTOP}Send to laptop</button>'
-        dock += share
+        dock = f'<a class="btn" href="{esc(dl["url"])}">{ICON_DOWNLOAD}{esc(dl.get("label", "Download full kit"))}</a>' + share
     elif all_prompts:
         dock = f'<button class="btn" type="button" data-copy="{esc((chr(10) * 2).join(all_prompts))}">{ICON_COPY}{f"Copy all {pcount} prompts" if pcount > 1 else "Copy the prompt"}</button>' + share
     else:

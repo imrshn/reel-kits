@@ -30,7 +30,6 @@ Drafts (`"draft": true`) are only built with `--drafts`, for previewing. Don't c
 
 ### `download` (optional)
 - `url`, `label` (default "Download full kit")
-- `laptop_only: true`: phones also get "Send to laptop" next to the download
 
 ### The bottom bar
 It's pinned on every device and picks its main button by itself: "Download full kit" if the kit has a `download`, otherwise "Copy all N prompts" if it has prompts. "Share" fills the second slot.
