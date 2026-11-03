@@ -1,0 +1,37 @@
+name: Publish kit downloads
+
+# Every kit in kits/<name>/ gets a permanent download link:
+#   https://github.com/imrshn/reel-kits/releases/download/<name>/<zip_name>
+# This rebuilds the ZIP whenever a kit changes and replaces the file behind that link.
+
+on:
+  push:
+    branches: [main]
+    paths: ["kits/**", "scripts/build_zips.py"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Build ZIPs
+        run: python scripts/build_zips.py | tee built.txt
+      - name: Upload each ZIP to its kit's release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          while IFS=$'\t' read -r kit zip; do
+            title=$(python -c "import json;m=json.load(open('kits/$kit/kit.json'));print(f\"{m['title']} kit (comment {m['keyword']})\")")
+            if ! gh release view "$kit" >/dev/null 2>&1; then
+              gh release create "$kit" --title "$title" --notes "Download **$(basename "$zip")** below, unzip it, and open START HERE.md." --latest=false
+            fi
+            gh release upload "$kit" "$zip" --clobber
+            echo "Published: https://github.com/${GITHUB_REPOSITORY}/releases/download/$kit/$(basename "$zip")"
+          done < built.txt
