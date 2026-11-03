@@ -1,0 +1,12 @@
+.venv/
+node_modules/
+exports/*
+!exports/.gitkeep
+raw-footage/*
+!raw-footage/.gitkeep
+references/*
+!references/.gitkeep
+!references/music/
+references/music/*
+!references/music/.gitkeep
+.DS_Store
