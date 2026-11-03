@@ -1,0 +1,77 @@
+{
+  "slug": "example-tools",
+  "keyword": "TOOLS",
+  "type": "Tool list",
+  "date": "2026-11-02",
+  "draft": true,
+  "name": "5 AI tools for faceless Reels",
+  "version_label": "Example layout · not published",
+  "headline": "5 AI tools for *faceless Reels*",
+  "summary": "EXAMPLE PAGE. A tool-list Reel: each tool with what it's for, a link and a starter prompt.",
+  "sections": [
+    {
+      "type": "tools",
+      "id": "tools",
+      "tab": "Tools",
+      "eyebrow": "The full list",
+      "title": "The *tools*",
+      "items": [
+        {
+          "name": "Claude",
+          "price": "Free plan + Pro",
+          "what": "Writes the script and hook, then edits the video with the EDITOR kit.",
+          "url": "https://claude.ai",
+          "prompt": "Write 5 hook lines for a Reel about [topic]. Under 8 words each."
+        },
+        {
+          "name": "Fish Audio",
+          "price": "Free tier",
+          "what": "Clones your voice for voiceovers, so you never have to record again.",
+          "url": "https://fish.audio"
+        },
+        {
+          "name": "HyperFrames",
+          "price": "Free, open source",
+          "what": "Turns HTML into animated graphics and captions.",
+          "url": "https://github.com/heygen-com/hyperframes"
+        },
+        {
+          "name": "Meta Edits",
+          "price": "Free",
+          "what": "Instagram's own editor for final trims and trending audio.",
+          "url": "https://www.instagram.com"
+        },
+        {
+          "name": "Descript",
+          "price": "Free tier",
+          "what": "Edit video by editing the transcript.",
+          "url": "https://www.descript.com"
+        }
+      ]
+    },
+    {
+      "type": "prompts",
+      "id": "prompts",
+      "tab": "Prompts",
+      "eyebrow": "Use them together",
+      "title": "Starter *prompts*",
+      "items": [
+        {
+          "tag": "Script",
+          "title": "Turn a topic into a 45-second script",
+          "text": "Write a 45-second Reel script about [[topic]] for developers and office workers. Hook in the first line, 3 clear points, end with: Comment [[KEYWORD]] and I'll send it to you."
+        }
+      ]
+    },
+    {
+      "type": "about",
+      "id": "about",
+      "tab": "About",
+      "eyebrow": "About",
+      "title": "Why *these*",
+      "needs": [
+        "Example content for layout preview only."
+      ]
+    }
+  ]
+}

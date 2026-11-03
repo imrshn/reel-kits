@@ -1,0 +1,136 @@
+{
+  "slug": "editor",
+  "keyword": "EDITOR",
+  "type": "Starter kit",
+  "date": "2026-11-03",
+  "draft": false,
+  "name": "Claude Video Editor",
+  "files": "editor",
+  "og_image": "assets/og-editor.png",
+  "version_label": "Kit v1.0 · Nov 2026",
+  "headline": "Turn Claude into your *video editor*",
+  "summary": "Turn a raw clip into a captioned, ready-to-post vertical Reel. Starter files, the 3 prompts and the setup steps.",
+  "sections": [
+    {
+      "type": "prompts",
+      "id": "prompts",
+      "tab": "Prompts",
+      "eyebrow": "No download? Use these",
+      "title": "The 3 *prompts*",
+      "intro": "Paste them into Claude's Code tab, in order, inside an empty folder.",
+      "items": [
+        {
+          "tag": "01 · Setup",
+          "title": "Install the tools",
+          "text": "You're my video editor, working in this folder. Set up these tools for me:\n\n- FFmpeg for cutting and exporting\n- Whisper (faster-whisper) for captions\n- yt-dlp for downloading reference videos\n- HyperFrames and Remotion for motion graphics (optional, they need Node.js 22+)\n\nInstall the Python tools into a private .venv inside this folder so nothing system-wide changes. Check what's already installed first. Ask me before anything that needs my password. Then test each tool on a short sample clip and tell me in plain words what works and what doesn't. Don't change anything outside this folder."
+        },
+        {
+          "tag": "02 · Taste",
+          "title": "Teach it your style",
+          "text": "Here are Reels I love:\n[[paste 3 to 5 links]]\n\nDownload them into references/ (if a download fails, I'll drop the files in myself) and study them closely: the hook in the first 2 seconds, pacing and average shot length, caption style (font, size, position, words on screen, highlight colour), colours, graphics and music energy.\n\nWrite what you learn into style-guide.md and follow it on every edit from now on. ==Make my Reels inspired by them, not a copy.== Never reuse their footage, graphics, text or music."
+        },
+        {
+          "tag": "03 · Edit",
+          "title": "Edit a raw clip into a Reel",
+          "text": "Edit the newest clip in raw-footage/ into a vertical Reel (1080x1920, 30 fps) that follows style-guide.md.\n\n- Transcribe it with Whisper using word timings\n- Cut dead air, ums, retakes and pauses longer than half a second\n- Burn in captions: 1 to 3 words on screen, key word highlighted, kept out of the bottom 20% of the frame\n- Put a bold 3 to 7 word hook title on screen for the first 2 seconds, using my own words\n- If there's a track in references/music, add it under my voice and lower it when I talk\n- Normalise loudness to about -14 LUFS\n\nKeep it under 60 seconds if you can. Look at a few frames of the result before you show me. Export to exports/ and tell me the length, what you cut and the hook you used."
+        }
+      ]
+    },
+    {
+      "type": "steps",
+      "id": "steps",
+      "tab": "Steps",
+      "eyebrow": "Step by step",
+      "title": "The *setup*",
+      "items": [
+        {
+          "title": "Download and unzip the kit",
+          "text": "You get a folder called AI Video Editor. Put it on your Desktop."
+        },
+        {
+          "title": "Open it in Claude",
+          "text": "Claude desktop app → Code tab → new Local session → pick the folder."
+        },
+        {
+          "title": "Type `set me up`",
+          "text": "Click Allow when asked. It ends by testing itself."
+        },
+        {
+          "title": "Type `learn my style` + links",
+          "text": "Optional. A clean default style is already set."
+        },
+        {
+          "title": "Drop a clip in raw-footage, type `edit my reel`",
+          "text": "Your Reel lands in exports. Add music to references/music first if you want it."
+        },
+        {
+          "title": "Ask for changes in plain words",
+          "text": "See the fix lines below."
+        }
+      ],
+      "extra": {
+        "summary": "Doing it without the download? Make this folder",
+        "code": "AI Video Editor/\n├── raw-footage/   # your clips\n├── references/    # Reels you love\n│   └── music/     # tracks you own\n└── exports/       # finished Reels"
+      }
+    },
+    {
+      "type": "fixes",
+      "id": "fixes",
+      "tab": "Fix lines",
+      "eyebrow": "After the first cut",
+      "title": "Fix *lines*",
+      "items": [
+        "Make the hook bigger.",
+        "It drags in the middle, tighten it.",
+        "Captions cover my face, move them down.",
+        "Music is too loud under my voice.",
+        "Add an animated list when I name the 3 steps.",
+        "This didn't work, fix it.",
+        "Save this as my style."
+      ]
+    },
+    {
+      "type": "about",
+      "id": "about",
+      "tab": "About",
+      "eyebrow": "About the kit",
+      "title": "What it *does*",
+      "features": [
+        {
+          "title": "Cuts dead air",
+          "text": "Pauses, ums and uhs"
+        },
+        {
+          "title": "Captions",
+          "text": "Key word highlighted"
+        },
+        {
+          "title": "Hook title",
+          "text": "First 2 seconds"
+        },
+        {
+          "title": "9:16 framing",
+          "text": "1080x1920"
+        },
+        {
+          "title": "Music ducking",
+          "text": "Drops when you talk"
+        },
+        {
+          "title": "Your style",
+          "text": "Learned, not copied"
+        }
+      ],
+      "needs": [
+        "Needs a Mac or Windows laptop and the Claude desktop app (claude.ai/download)",
+        "Needs a paid Claude plan (Pro or higher)",
+        "Everything installs inside the folder. Delete the folder and it's gone."
+      ]
+    }
+  ],
+  "download": {
+    "url": "https://github.com/imrshn/reel-kits/releases/download/editor/editor-kit.zip",
+    "label": "Download full kit",
+    "laptop_only": true
+  }
+}
