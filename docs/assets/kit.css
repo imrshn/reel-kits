@@ -130,7 +130,9 @@ footer .ver{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-tra
 /* bottom action bar (phones) */
 .dock{position:fixed;left:0;right:0;bottom:0;z-index:6;padding:10px max(16px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));background:var(--bar);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--line)}
 .dock .in{max-width:640px;margin:0 auto;display:flex;gap:8px}
-.dock .btn{flex:1;padding:13px 10px;font-size:14.5px}
+.dock .btn{flex:1;padding:13px 10px;font-size:14.5px;gap:7px}
+.dock .btn:first-child{flex:1.6}
+.dock .btn svg{flex:none}
 .toast{position:fixed;left:50%;bottom:calc(86px + env(safe-area-inset-bottom,0px));transform:translateX(-50%) translateY(20px);opacity:0;z-index:7;background:var(--ink);color:#fff;font-weight:700;font-size:14px;padding:10px 16px;border-radius:999px;transition:all .2s ease;pointer-events:none;max-width:calc(100vw - 32px);text-align:center}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
@@ -159,8 +161,6 @@ footer .ver{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-tra
   .only-desk{display:none!important}
 }
 @media (hover:hover) and (pointer:fine), (min-width:1024px){
-  .dock{display:none}
-  body{padding-bottom:0}
   .tabs{justify-content:center}
 }
 @media (max-width:360px){.does{grid-template-columns:1fr}}

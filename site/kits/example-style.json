@@ -8,30 +8,6 @@
   "version_label": "Example layout · not published",
   "headline": "6 prompts to *restyle* any video",
   "summary": "EXAMPLE PAGE. A prompt-pack Reel: short prompts, each with a copy button, no download.",
-  "quick": {
-    "title": "Most popular",
-    "meta": "copy and paste",
-    "items": [
-      {
-        "text": "Make it look cinematic",
-        "mono": false,
-        "note": "Warm grade, letterbox, slow zooms",
-        "copy": "Restyle this video to look cinematic: warm colour grade, subtle letterbox bars, slow push-in zooms on key moments."
-      },
-      {
-        "text": "Bold pop-in captions",
-        "mono": false,
-        "note": "Big, punchy, 1 word at a time",
-        "copy": "Redo the captions: 1 word at a time, huge bold font, yellow highlight on key words, pop-in animation."
-      },
-      {
-        "text": "Clean and minimal",
-        "mono": false,
-        "note": "White space, soft music",
-        "copy": "Make this video clean and minimal: soft colours, simple lower-third captions, no zooms, calm background music."
-      }
-    ]
-  },
   "sections": [
     {
       "type": "prompts",

@@ -8,33 +8,6 @@
   "version_label": "Example layout · not published",
   "headline": "5 AI tools for *faceless Reels*",
   "summary": "EXAMPLE PAGE. A tool-list Reel: each tool with what it's for, a link and a starter prompt.",
-  "quick": {
-    "title": "The short version",
-    "meta": "tap to open",
-    "items": [
-      {
-        "text": "Claude",
-        "mono": false,
-        "note": "Scripts, hooks and editing",
-        "url": "https://claude.ai",
-        "button": "Open"
-      },
-      {
-        "text": "Fish Audio",
-        "mono": false,
-        "note": "Voiceover in your own cloned voice",
-        "url": "https://fish.audio",
-        "button": "Open"
-      },
-      {
-        "text": "HyperFrames",
-        "mono": false,
-        "note": "Motion graphics from HTML",
-        "url": "https://github.com/heygen-com/hyperframes",
-        "button": "Open"
-      }
-    ]
-  },
   "sections": [
     {
       "type": "tools",

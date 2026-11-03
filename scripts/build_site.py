@@ -29,6 +29,8 @@ ICON_DOWNLOAD = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" str
 ICON_LAPTOP = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M2 20h20"/></svg>'
 ICON_HOME = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/></svg>'
 ICON_SEARCH = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>'
+ICON_SHARE = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3m0 0L7 8m5-5 5 5"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg>'
+ICON_COPY = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"/></svg>'
 ICON_OUT = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>'
 
 
@@ -155,32 +157,6 @@ def render_about(s: dict) -> str:
     return "\n".join(out)
 
 
-def render_quick(k: dict) -> str:
-    q = k["quick"]
-    dl = q.get("download")
-    laptop = q.get("laptop_only", False)
-    parts = ['<div class="quick"><i class="br tl"></i><i class="br bbr"></i>',
-             f'<div class="qhead"><b>{esc(q.get("title", "Quick start"))}</b><span>{esc(q.get("meta", ""))}</span></div>']
-    if dl and laptop:
-        parts.append(f'<a class="btn full only-desk" href="{esc(dl["url"])}">{ICON_DOWNLOAD}{esc(dl.get("label", "Download the kit"))}</a>')
-        parts.append(f'<button class="btn full only-touch" type="button" data-share="{esc(k["name"])}: open this on my laptop">{ICON_LAPTOP}Send this kit to my laptop</button>')
-        parts.append(f'<p class="alt only-touch">On a laptop already? <a href="{esc(dl["url"])}">Download the ZIP</a></p>')
-    elif dl:
-        parts.append(f'<a class="btn full" href="{esc(dl["url"])}">{ICON_DOWNLOAD}{esc(dl.get("label", "Download"))}</a>')
-    if q.get("hint"):
-        parts.append(f'<p class="hint">{ICON_LAPTOP}<span>{inline(q["hint"])}</span></p>')
-    for i, it in enumerate(q.get("items", []), 1):
-        label = f"<code>{esc(it['text'])}</code>" if it.get("mono", True) else f"<strong>{inline(it['text'])}</strong>"
-        note = f"<small>{inline(it['note'])}</small>" if it.get("note") else ""
-        if it.get("url"):
-            act = f'<a class="btn sm" href="{esc(it["url"])}" target="_blank" rel="noopener">{esc(it.get("button", "Open"))}</a>'
-        else:
-            act = f'<button class="btn sm" type="button" data-copy="{esc(prompt_plain(it.get("copy", it["text"])))}">Copy</button>'
-        parts.append(f'<div class="row"><span class="n">{i}</span><span class="t">{label}{note}</span>{act}</div>')
-    parts.append("</div>")
-    return "\n".join(parts)
-
-
 RENDER = {"prompts": render_prompts, "tools": render_tools, "steps": render_steps, "fixes": render_fixes, "about": render_about}
 
 
@@ -189,33 +165,39 @@ def build_kit(k: dict) -> str:
     url = f"{BASE}{slug}/"
     og = BASE + k.get("og_image", "assets/og-default.png")
     sections = k.get("sections", [])
-    laptop = k.get("quick", {}).get("laptop_only", False)
-    tabs = [f'<a class="home" href="../" aria-label="All kits">{ICON_HOME}</a>', '<a href="#start" class="on">Quick start</a>']
-    tabs += [f'<a href="#{esc(s["id"])}">{esc(s.get("tab", s["type"].title()))}</a>' for s in sections]
+    dl = k.get("download")
+    laptop = bool(dl and dl.get("laptop_only"))
+    tabs = [f'<a class="home" href="../" aria-label="All kits">{ICON_HOME}</a>']
+    tabs += [f'<a href="#{esc(s["id"])}"{' class="on"' if i == 0 else ''}>{esc(s.get("tab", s["type"].title()))}</a>' for i, s in enumerate(sections)]
     body = []
     pcount = 0
+    all_prompts = []
     for s in sections:
         if s["type"] == "prompts":
             body.append(render_prompts(s, pcount))
             pcount += len(s["items"])
+            all_prompts += [f'{p["title"]}\n{prompt_plain(p["text"])}' for p in s["items"]]
         else:
             body.append(RENDER[s["type"]](s))
-    first = sections[0] if sections else None
-    if laptop:
-        dock_main = f'<button class="btn" type="button" data-share="{esc(k["name"])}: open this on my laptop">Send to my laptop</button>'
+    share = f'<button class="btn light{" only-desk" if laptop else ""}" type="button" data-share="{esc(k["name"])}">{ICON_SHARE}Share</button>'
+    if dl:
+        dock = f'<a class="btn" href="{esc(dl["url"])}">{ICON_DOWNLOAD}{esc(dl.get("label", "Download full kit"))}</a>'
+        if laptop:
+            dock += f'<button class="btn light only-touch" type="button" data-share="{esc(k["name"])}: open this on my laptop">{ICON_LAPTOP}Send to laptop</button>'
+        dock += share
+    elif all_prompts:
+        dock = f'<button class="btn" type="button" data-copy="{esc((chr(10) * 2).join(all_prompts))}">{ICON_COPY}{f"Copy all {pcount} prompts" if pcount > 1 else "Copy the prompt"}</button>' + share
     else:
-        dock_main = f'<button class="btn" type="button" data-share="{esc(k["name"])}">Send to a friend</button>'
-    dock_second = f'<a class="btn light" href="#{esc(first["id"])}">{esc(first.get("tab", first["type"].title()))}</a>' if first else ""
+        dock = share.replace("btn light", "btn")
     files = (f' · <a href="https://github.com/imrshn/reel-kits/tree/main/kits/{esc(k["files"])}">Files on GitHub</a>' if k.get("files") else "")
     return head(f'{k["name"]} Kit' if k.get("type") == "Starter kit" else k["name"], k["summary"], url, og, "../") + f"""<body data-url="{esc(url)}">
 <nav class="tabs" aria-label="Sections">
   {''.join(tabs)}
 </nav>
 <main class="wrap">
-<section id="start" class="sec">
+<section id="top" class="sec hero">
   <div><span class="label">{esc(k.get("type", "Free kit"))} · Comment <span class="kw">{esc(k["keyword"])}</span></span>
   <h1>{inline(k["headline"])}</h1>{f'<p class="sub">{inline(k["lede"])}</p>' if k.get("lede") else ''}</div>
-  {render_quick(k)}
 </section>
 {chr(10).join(body)}
 <footer>
@@ -224,7 +206,7 @@ def build_kit(k: dict) -> str:
   <span class="ver">{esc(k.get("version_label", ""))}</span>
 </footer>
 </main>
-<div class="dock"><div class="in">{dock_main}{dock_second}</div></div>
+<div class="dock"><div class="in">{dock}</div></div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script src="../assets/kit.js"></script>
 </body>

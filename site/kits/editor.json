@@ -10,30 +10,6 @@
   "version_label": "Kit v1.0 · Nov 2026",
   "headline": "Turn Claude into your *video editor*",
   "summary": "Turn a raw clip into a captioned, ready-to-post vertical Reel. Starter files, the 3 prompts and the setup steps.",
-  "quick": {
-    "title": "Quick start",
-    "meta": "about 15 min, once",
-    "laptop_only": true,
-    "download": {
-      "url": "https://github.com/imrshn/reel-kits/releases/download/editor/editor-kit.zip",
-      "label": "Download the kit"
-    },
-    "hint": "Unzip it, open the folder in Claude's **Code** tab, then type:",
-    "items": [
-      {
-        "text": "set me up",
-        "note": "Installs and tests everything"
-      },
-      {
-        "text": "learn my style",
-        "note": "Optional: paste 3 to 5 Reel links after it"
-      },
-      {
-        "text": "edit my reel",
-        "note": "After dropping a clip in raw-footage"
-      }
-    ]
-  },
   "sections": [
     {
       "type": "prompts",
@@ -151,5 +127,10 @@
         "Everything installs inside the folder. Delete the folder and it's gone."
       ]
     }
-  ]
+  ],
+  "download": {
+    "url": "https://github.com/imrshn/reel-kits/releases/download/editor/editor-kit.zip",
+    "label": "Download full kit",
+    "laptop_only": true
+  }
 }

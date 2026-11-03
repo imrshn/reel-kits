@@ -20,22 +20,12 @@
 </head>
 <body data-url="https://imrshn.github.io/reel-kits/editor/">
 <nav class="tabs" aria-label="Sections">
-  <a class="home" href="../" aria-label="All kits"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/></svg></a><a href="#start" class="on">Quick start</a><a href="#prompts">Prompts</a><a href="#steps">Steps</a><a href="#fixes">Fix lines</a><a href="#about">About</a>
+  <a class="home" href="../" aria-label="All kits"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/></svg></a><a href="#prompts" class="on">Prompts</a><a href="#steps">Steps</a><a href="#fixes">Fix lines</a><a href="#about">About</a>
 </nav>
 <main class="wrap">
-<section id="start" class="sec">
+<section id="top" class="sec hero">
   <div><span class="label">Starter kit · Comment <span class="kw">EDITOR</span></span>
   <h1>Turn Claude into your <em>video editor</em></h1></div>
-  <div class="quick"><i class="br tl"></i><i class="br bbr"></i>
-<div class="qhead"><b>Quick start</b><span>about 15 min, once</span></div>
-<a class="btn full only-desk" href="https://github.com/imrshn/reel-kits/releases/download/editor/editor-kit.zip"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11m0 0-5-5m5 5 5-5M5 20h14"/></svg>Download the kit</a>
-<button class="btn full only-touch" type="button" data-share="Claude Video Editor: open this on my laptop"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M2 20h20"/></svg>Send this kit to my laptop</button>
-<p class="alt only-touch">On a laptop already? <a href="https://github.com/imrshn/reel-kits/releases/download/editor/editor-kit.zip">Download the ZIP</a></p>
-<p class="hint"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M2 20h20"/></svg><span>Unzip it, open the folder in Claude&#x27;s <b>Code</b> tab, then type:</span></p>
-<div class="row"><span class="n">1</span><span class="t"><code>set me up</code><small>Installs and tests everything</small></span><button class="btn sm" type="button" data-copy="set me up">Copy</button></div>
-<div class="row"><span class="n">2</span><span class="t"><code>learn my style</code><small>Optional: paste 3 to 5 Reel links after it</small></span><button class="btn sm" type="button" data-copy="learn my style">Copy</button></div>
-<div class="row"><span class="n">3</span><span class="t"><code>edit my reel</code><small>After dropping a clip in raw-footage</small></span><button class="btn sm" type="button" data-copy="edit my reel">Copy</button></div>
-</div>
 </section>
 <section id="prompts" class="sec" aria-labelledby="prompts-h"><div><span class="label">No download? Use these</span><h2 id="prompts-h">The 3 <em>prompts</em></h2><p class="sub">Paste them into Claude&#x27;s Code tab, in order, inside an empty folder.</p></div>
 <article class="card">
@@ -114,7 +104,7 @@ Keep it under 60 seconds if you can. Look at a few frames of the result before y
   <span class="ver">Kit v1.0 · Nov 2026</span>
 </footer>
 </main>
-<div class="dock"><div class="in"><button class="btn" type="button" data-share="Claude Video Editor: open this on my laptop">Send to my laptop</button><a class="btn light" href="#prompts">Prompts</a></div></div>
+<div class="dock"><div class="in"><a class="btn" href="https://github.com/imrshn/reel-kits/releases/download/editor/editor-kit.zip"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11m0 0-5-5m5 5 5-5M5 20h14"/></svg>Download full kit</a><button class="btn light only-touch" type="button" data-share="Claude Video Editor: open this on my laptop"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M2 20h20"/></svg>Send to laptop</button><button class="btn light only-desk" type="button" data-share="Claude Video Editor"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3m0 0L7 8m5-5 5 5"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg>Share</button></div></div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script src="../assets/kit.js"></script>
 </body>

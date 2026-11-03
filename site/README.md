@@ -25,15 +25,15 @@ Drafts (`"draft": true`) are only built with `--drafts`, for previewing. Don't c
 | `name`, `headline`, `lede`, `summary` | The title, the big heading, the line under it, and the home page card text |
 | `og_image` | Optional link preview image under `docs/` (default `assets/og-default.png`) |
 | `files` | Optional folder name in `kits/` for the "Files on GitHub" link |
-| `quick` | The card at the top: the 3 things most people want |
-| `sections` | The rest of the page, in order. Each one becomes a tab |
+| `download` | Optional ZIP download (see below) |
+| `sections` | The page content, in order, right under the headline. Each one becomes a tab |
 
-### `quick`
-- `title`, `meta`: the card heading and its small right-hand note
-- `download`: `{ "url", "label" }` for a download button
-- `laptop_only: true`: phones get "Send this kit to my laptop" instead of the download
-- `hint`: a one-line tip
-- `items`: rows. Each one has `text`, `note`, and either `url` + `button` (opens a link) or `copy` (copies text, which defaults to `text`). Set `mono: false` for normal text instead of code style.
+### `download` (optional)
+- `url`, `label` (default "Download full kit")
+- `laptop_only: true`: phones also get "Send to laptop" next to the download
+
+### The bottom bar
+It's pinned on every device and picks its main button by itself: "Download full kit" if the kit has a `download`, otherwise "Copy all N prompts" if it has prompts. "Share" fills the second slot.
 
 ### Section types
 Every section has `type`, `id`, `tab`, and optionally `eyebrow`, `title` and `intro`.
