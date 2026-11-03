@@ -4,63 +4,40 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Reel Kits</title>
-<meta name="description" content="Free Claude kits from my Instagram Reels. Commented a keyword? Your kit is here.">
+<meta name="description" content="Free kits from my Instagram Reels. Type the keyword from the Reel to find yours.">
 <meta property="og:title" content="Reel Kits">
-<meta property="og:description" content="Free Claude kits from my Instagram Reels.">
-<meta property="og:image" content="https://imrshn.github.io/reel-kits/assets/og-editor.png">
+<meta property="og:description" content="Free kits from my Instagram Reels. Type the keyword from the Reel to find yours.">
+<meta property="og:image" content="https://imrshn.github.io/reel-kits/assets/og-default.png">
+<meta property="og:url" content="https://imrshn.github.io/reel-kits/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#E6EFFF">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap">
-<style>
-/* Layout: phone-first column, kit cards keyed by the comment keyword. Single light theme (brand: Sky Hologram). */
-:root{--ink:#0A2540;--muted:#44546F;--acc:#2563EB;--deep:#1D4ED8;--sun:#FFB547;--ok:#12A36B;--line:rgba(10,37,64,.10);--dot:rgba(10,37,64,.08);
-  --holo:linear-gradient(120deg,#C9D8FF,#F4D9FF 35%,#D2F5F0 65%,#FFE9C7);--sky:linear-gradient(180deg,#E6EFFF 0%,#F3F6FF 45%,#FFF4E6 100%);
-  --display:'Instrument Serif',Georgia,serif;--body:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',sans-serif;--mono:'Geist Mono',ui-monospace,Menlo,monospace;color-scheme:light}
-*{box-sizing:border-box}
-html{background:#EAF2FF;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-body{margin:0;min-height:100vh;background:#EAF2FF;background-image:var(--sky);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;
-  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-body::after{content:"";position:fixed;inset:0;background-image:radial-gradient(var(--dot) 1.3px,transparent 1.9px);background-size:26px 26px;pointer-events:none;z-index:0}
-.wrap{position:relative;z-index:1;max-width:660px;margin:0 auto;padding-block:32px 56px;display:flex;flex-direction:column;gap:32px}
-.hud{display:flex;justify-content:space-between;gap:12px;font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
-.hud b{color:var(--acc);font-weight:600}
-.bar{height:3px;border-radius:2px;margin-top:10px;background:linear-gradient(90deg,var(--acc),var(--sun))}
-h1{font-family:var(--display);font-weight:400;font-size:clamp(46px,12vw,76px);line-height:.98;margin:0;text-wrap:balance}
-h1 em{color:var(--acc)}
-.lede{color:var(--muted);font-size:17px;margin:12px 0 0;max-width:50ch}
-.kits{display:flex;flex-direction:column;gap:14px;list-style:none;margin:0;padding:0}
-.kit{position:relative;display:flex;flex-direction:column;gap:10px;background:rgba(255,255,255,.8);border:2px solid #fff;border-radius:24px;padding:20px;box-shadow:0 20px 50px rgba(37,99,235,.12);text-decoration:none;color:inherit;transition:transform .15s ease}
-.kit:hover{transform:translateY(-2px)}
-.kit:focus-visible{outline:3px solid var(--sun);outline-offset:3px}
-.kw{align-self:flex-start;font-family:var(--mono);font-size:12px;letter-spacing:.16em;font-weight:600;padding:6px 12px;border-radius:999px;background:var(--holo);border:1.5px solid #fff}
-.kit h2{margin:0;font-size:21px;font-weight:800;line-height:1.25}
-.kit p{margin:0;color:var(--muted);font-size:15px}
-.go{font-weight:700;color:var(--acc);font-size:15px}
-.soon{border:2px dashed rgba(37,99,235,.3);border-radius:24px;padding:18px 20px;color:var(--muted);font-size:15px;background:rgba(255,255,255,.4)}
-footer{text-align:center;color:var(--muted);font-size:13px}
-footer a{color:var(--acc);font-weight:700}
-@media (prefers-reduced-motion:reduce){*{transition:none!important}}
-</style>
+<link rel="stylesheet" href="assets/kit.css">
 </head>
-<body>
+<body class="no-dock" data-url="https://imrshn.github.io/reel-kits/">
 <main class="wrap">
-  <div><div class="hud"><span>AI tool breakdown</span><b>Free kits</b></div><div class="bar"></div></div>
   <header>
-    <h1>Free kits from <em>my Reels</em></h1>
-    <p class="lede">Commented a keyword? Find it below. Every kit is free, tested, and opens in the Claude desktop app.</p>
+    <span class="label">Free kits from my Reels</span>
+    <h1>Find your <em>kit</em></h1>
+    <p class="sub">Type the keyword you commented on the Reel. Every kit is free.</p>
   </header>
-  <ul class="kits">
-    <li><a class="kit" href="editor/">
-      <span class="kw">EDITOR</span>
-      <h2>Claude Video Editor</h2>
-      <p>Turn a raw clip into a captioned, ready-to-post vertical Reel. Starter files, the 6-step setup and all 3 prompts.</p>
-      <span class="go">Open the kit →</span>
-    </a></li>
+  <div class="search"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="q" type="search" inputmode="text" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="Type the keyword, e.g. EDITOR" aria-label="Keyword from the Reel"></div>
+  <ul class="list">
+<li data-kw="EDITOR" data-text="Claude Video Editor Turn a raw clip into a captioned, ready-to-post vertical Reel. Starter files, the 3 prompts and the setup steps. Starter kit"><a class="kit" href="editor/">
+  <span class="meta"><span class="chip kw">EDITOR</span><span class="type">Starter kit</span></span>
+  <h3>Claude Video Editor</h3>
+  <p>Turn a raw clip into a captioned, ready-to-post vertical Reel. Starter files, the 3 prompts and the setup steps.</p>
+  <span class="go">Open the kit →</span>
+</a></li>
   </ul>
-  <div class="soon">More kits arrive with new Reels. Follow along so you don't miss them.</div>
-  <footer><a href="https://github.com/imrshn/reel-kits">All kit files on GitHub</a></footer>
+  <p class="empty" id="none" hidden>No kit with that keyword yet. Check the spelling, or look at the newest kits above.</p>
+  <footer><span><a href="https://github.com/imrshn/reel-kits">All kit files on GitHub</a></span></footer>
 </main>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="assets/kit.js"></script>
 </body>
 </html>
