@@ -36,7 +36,9 @@
   });
   // active tab follows the section in view
   var tabs=[].slice.call(document.querySelectorAll('.tabs a[href^="#"]')),lock=0;
-  function setTab(h){tabs.forEach(function(t){var on=t.getAttribute('href')===h;t.classList.toggle('on',on);if(on&&t.scrollIntoView)t.scrollIntoView({block:'nearest',inline:'center'});});}
+  // Scroll only the tab bar sideways. scrollIntoView also moved the page on iPhone Safari/Chrome and pulled it back up at the bottom.
+  function setTab(h){tabs.forEach(function(t){var on=t.getAttribute('href')===h;if(on===t.classList.contains('on'))return;t.classList.toggle('on',on);
+    if(on){var bar=t.parentNode,x=t.offsetLeft-(bar.clientWidth-t.offsetWidth)/2;if(bar.scrollWidth>bar.clientWidth){try{bar.scrollTo({left:x,behavior:'smooth'});}catch(e){bar.scrollLeft=x;}}}});}
   tabs.forEach(function(t){t.addEventListener('click',function(){setTab(t.getAttribute('href'));lock=Date.now()+1200;});});
   if(tabs.length&&'IntersectionObserver' in window){
     var io=new IntersectionObserver(function(es){if(Date.now()<lock)return;es.forEach(function(e){if(e.isIntersecting)setTab('#'+e.target.id);});},{rootMargin:'-45% 0px -50% 0px'});
