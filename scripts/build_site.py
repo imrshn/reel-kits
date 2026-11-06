@@ -70,6 +70,9 @@ def head(title: str, desc: str, url: str, og: str, rel: str) -> str:
 <meta property="og:title" content="{esc(title)}">
 <meta property="og:description" content="{esc(desc)}">
 <meta property="og:image" content="{esc(og)}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="{esc(title)}">
 <meta property="og:url" content="{esc(url)}">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
