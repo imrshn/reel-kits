@@ -1,0 +1,543 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Infinite Zoom</title>
+<style>
+  :root{--ink:#06101f;--glow:#7cd4ff;}
+  html,body{margin:0;height:100%;background:#000;overflow:hidden;font-family:-apple-system,"SF Pro Display",Inter,system-ui,sans-serif;}
+  canvas#gl{position:fixed;inset:0;width:100vw;height:100vh;display:block;cursor:grab;}
+  canvas#gl:active{cursor:grabbing}
+  #hook{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);text-align:center;pointer-events:none;
+        color:#fff;font-weight:800;letter-spacing:-.02em;line-height:1.05;width:min(90vw,900px);
+        text-shadow:0 0 24px rgba(124,212,255,.55),0 2px 10px rgba(0,0,0,.6);transition:opacity .4s;}
+  #hook .l1{font-size:clamp(28px,6vw,96px);display:block}
+  #hook .l2{font-size:clamp(28px,6vw,96px);display:block;opacity:.92}
+  #hook .l3{font-size:clamp(34px,8vw,128px);display:block;margin-top:.1em;
+            background:linear-gradient(90deg,#9fe3ff,#ffffff,#ffd27a);-webkit-background-clip:text;background-clip:text;color:transparent;}
+  #hook.hide{opacity:0}
+  #hud{position:fixed;left:18px;bottom:16px;color:#cfeeff;font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+       opacity:.75;pointer-events:none;display:flex;gap:14px;align-items:center;transition:opacity .4s}
+  #hud .pip{display:onln-block;width:8px;height:8px;border-radius:50%;background:#7cd4ff;box-shadow:0 0 10px #7cd4ff}
+  #hud.hide{opacity:0}
+  #start{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(2,6,16,.55);
+         color:#fff;cursor:pointer;z-index:5;backdrop-filter:blur(6px)}
+  #start div{text-align:center;font-size:18px;letter-spacing:.08em}
+  #start b{display:block;font-size:34px;margin-bottom:10px;font-weight:800}
+  #start small{display:block;margin-top:14px;opacity:.7;font-size:13px;letter-spacing:.12em}
+  #start.hide{display:none}
+</style>
+</head>
+<body>
+<canvas id="gl"></canvas>
+<div id="hook"><span class="l1">No video.</span><span class="l2">No AI video tool.</span><span class="l3">Just code.</span></div>
+<div id="hud"><span class="pip"></span><span id="world">CHIP</span><span id="beat"></span></div>
+<div id="start"><div><b>THE INFINITE ZOOM</b>click to start · sound on<small>F fullscreen · H hide text · M mute · drag to tilt</small></div></div>
+
+<script id="vs" type="x-shader/x-vertex">
+attribute vec2 a; void main(){ gl_Position=vec4(a,0.,1.); }
+</script>
+<script id="fs" type="x-shader/x-fragment">
+precision highp float;
+uniform vec2 u_res; uniform float u_time; uniform vec2 u_tilt; uniform float u_seg;
+
+#define PI 3.14159265
+#define NW 10.0
+
+float hash(vec2 p){ p=fract(p*vec2(123.34,456.21)); p+=dot(p,p+45.32); return fract(p.x*p.y); }
+float hash1(float n){ return fract(sin(n*127.1)*43758.5453); }
+float noise(vec2 p){ vec2 i=floor(p), f=fract(p); f=f*f*(3.-2.*f);
+  return mix(mix(hash(i),hash(i+vec2(1,0)),f.x),mix(hash(i+vec2(0,1)),hash(i+1.),f.x),f.y); }
+float fbm(vec2 p){ float v=0.,a=.5; for(int i=0;i<5;i++){ v+=a*noise(p); p=p*2.03+17.1; a*=.5; } return v; }
+float fbm3(vec2 p){ float v=0.,a=.5; for(int i=0;i<3;i++){ v+=a*noise(p); p=p*2.07+9.3; a*=.5; } return v; }
+float sdBox(vec2 p, vec2 b){ vec2 d=abs(p)-b; return length(max(d,0.))+min(max(d.x,d.y),0.); }
+mat2 rot(float a){ float c=cos(a),s=sin(a); return mat2(c,-s,s,c); }
+
+vec3 stars(vec2 p, float dens){
+  vec2 i=floor(p), f=fract(p); float h=hash(i);
+  vec2 c=vec2(hash(i+3.1),hash(i+7.7))*0.8+0.1; float d=length(f-c);
+  float s=smoothstep(0.09,0.0,d)*step(1.-dens,h);
+  float tw=0.65+0.35*sin(u_time*7.+h*60.);
+  return vec3(s*tw)*mix(vec3(.75,.85,1.),vec3(1.,.9,.7),hash(i+9.));
+}
+vec3 starfield(vec2 uv){ return stars(uv*22.,0.06)+stars(uv*48.+5.,0.03)*0.6+stars(uv*9.,0.05)*1.4; }
+
+/* ---------- 0 CHIP ---------- */
+vec3 wChip(vec2 uv, float p){
+  float s=mix(2.5,48.,pow(max(p,0.),1.35)); vec2 q=uv*s;
+  vec3 col=vec3(0.02,0.035,0.09);
+  vec2 g=fract(q)-0.5; vec2 id=floor(q);
+  float die=sdBox(q,vec2(9.)); float pkg=sdBox(q,vec2(20.,20.));
+  float inDie=step(die,0.);
+  float lh=smoothstep(0.09,0.03,abs(g.y))*step(0.35,hash(id+1.3));
+  float lv=smoothstep(0.09,0.03,abs(g.x))*step(0.35,hash(id+2.7));
+  float tr=max(lh,lv)*mix(0.35,1.,inDie)*step(pkg,0.) + max(lh,lv)*0.25*step(0.,pkg)*step(0.5,hash(floor(q*0.5)));
+  col+=vec3(0.0,0.55,0.7)*tr*0.6;
+  float ph=fract(q.x/9.-u_time*0.9+hash(vec2(id.y,1.))); float gh=exp(-pow((ph-0.5)*7.,2.))*lh;
+  float pv=fract(q.y/9.-u_time*1.1+hash(vec2(id.x,2.))); float gv=exp(-pow((pv-0.5)*7.,2.))*lv;
+  col+=vec3(1.,.62,.15)*(gh+gv)*2.2*mix(0.3,1.,inDie);
+  float via=smoothstep(0.14,0.08,length(g))*lh*lv; col+=vec3(0.6,1.,1.)*via;
+  col+=vec3(0.15,0.8,1.0)*exp(-abs(die)*0.6)*0.9;
+  col+=vec3(0.2,0.6,1.0)*exp(-abs(pkg)*0.9)*0.5;
+  float pins=step(20.,abs(q.x))*step(abs(q.x),26.)*step(abs(q.y),19.)*step(fract(q.y*0.5),0.4)
+            +step(20.,abs(q.y))*step(abs(q.y),26.)*step(abs(q.x),19.)*step(fract(q.x*0.5),0.4);
+  col=mix(col,vec3(1.,.8,.4),clamp(pins,0.,1.)*0.9);
+  col=mix(col,vec3(0.05,0.06,0.1),step(0.,pkg)*step(-20.,-max(abs(q.x),abs(q.y))+40.)*0.0);
+  col+=vec3(0.,0.9,1.)*exp(-length(q)*0.08)*0.25*(0.6+0.4*sin(u_time*8.));
+  return col;
+}
+/* ---------- 1 LAPTOP ---------- */
+vec3 wLaptop(vec2 uv, float p){
+  float s=mix(0.22,2.3,p); vec2 q=uv*s+mix(vec2(0.,0.42),vec2(0.,0.16),smoothstep(0.,0.5,p));
+  vec3 col=mix(vec3(0.05,0.03,0.06),vec3(0.16,0.08,0.05),smoothstep(-1.,1.,q.y)); // desk
+  col+=vec3(1.,.6,.3)*exp(-length(q-vec2(0.9,0.9))*2.)*0.4;
+  vec2 sc=vec2(0.,0.42); vec2 sh=vec2(0.52,0.33);
+  float scr=sdBox(q-sc,sh);
+  col+=vec3(0.2,0.6,1.)*exp(-max(scr,0.)*6.)*0.35; // screen glow
+  float bez=sdBox(q-sc,sh+0.04); col=mix(col,vec3(0.1,0.11,0.13),smoothstep(0.01,0.,bez));
+  // screen content: code lines
+  vec2 sq=(q-sc)/sh; // -1..1
+  vec3 scol=vec3(0.03,0.05,0.1);
+  float rowH=0.055; float scroll=floor(u_time*4.);
+  float row=floor((sq.y+1.)/rowH)-scroll; float ry=fract((sq.y+1.)/rowH);
+  float indent=floor(hash1(row*3.1)*4.)*0.08; float len=0.15+0.6*hash1(row*5.7);
+  float x=(sq.x+1.)*0.5; float onln=step(indent,x)*step(x,indent+len)*step(0.25,ry)*step(ry,0.75);
+  float cs=hash1(row*9.3); vec3 cc=cs<0.3?vec3(0.5,0.85,1.):cs<0.6?vec3(1.,0.6,0.4):cs<0.8?vec3(0.6,1.,0.6):vec3(0.9,0.8,1.);
+  // token gaps
+  float tok=step(0.15,fract(x*9.+hash1(row)));
+  scol+=cc*onln*tok;
+  float cursor=step(abs(sq.x-(indent+len)*2.+1.)-0.02,0.)*step(abs(row-(5.))-0.5,0.)*step(0.5,fract(u_time*2.));
+  scol+=vec3(1.)*cursor*0.0;
+  scol+=vec3(0.1,0.3,0.6)*0.15*smoothstep(1.,0.,length(sq*vec2(0.5,1.)));
+  col=mix(col,scol,smoothstep(0.005,0.,scr));
+  // base / keyboard
+  vec2 bc=vec2(0.,-0.1); vec2 bh=vec2(0.58,0.19);
+  float base=sdBox(q-bc,bh); col=mix(col,vec3(0.13,0.14,0.17),smoothstep(0.01,0.,base));
+  vec2 kq=(q-bc); vec2 kid=floor(kq/0.055); vec2 kf=fract(kq/0.055)-0.5;
+  float key=smoothstep(0.42,0.36,max(abs(kf.x),abs(kf.y)));
+  float inKeys=step(abs(kq.x),0.5)*step(abs(kq.y),0.12);
+  vec3 kcol=0.5+0.5*cos(6.28*(hash(kid)*0.3+u_time*0.5+kid.x*0.05)+vec3(0.,2.,4.));
+  col=mix(col,vec3(0.05)+kcol*0.5,key*inKeys);
+  float pad=sdBox(kq-vec2(0.,-0.16),vec2(0.12,0.025)); col=mix(col,vec3(0.2,0.21,0.25),smoothstep(0.004,0.,pad));
+  return col;
+}
+/* ---------- 2 NEON CITY (top-down) ---------- */
+vec3 wCity(vec2 uv, float p){
+  float s=mix(1.6,34.,pow(max(p,0.),1.3)); vec2 q=uv*s; q.x+=u_time*0.4;
+  vec2 cell=floor(q), f=fract(q);
+  vec3 col=vec3(0.015,0.02,0.05);
+  float edge=min(min(f.x,1.-f.x),min(f.y,1.-f.y));
+  float street=smoothstep(0.11,0.07,edge);
+  float lamp=step(0.5,fract(q.x*2.))*step(0.5,fract(q.y*2.));
+  col+=vec3(1.,.55,.15)*street*(0.25+0.3*smoothstep(0.1,0.0,edge));
+  // blocks
+  vec2 bq=(f-0.5)/0.38; float blk=step(max(abs(bq.x),abs(bq.y)),1.);
+  vec2 wq=floor((f-0.12)/0.76*vec2(7.,9.)); vec2 wf=fract((f-0.12)/0.76*vec2(7.,9.));
+  float lit=step(0.55,hash(wq+cell*13.)); float win=smoothstep(0.5,0.3,max(abs(wf.x-0.5),abs(wf.y-0.5)))*lit;
+  float hue=hash(cell*7.1);
+  vec3 wc=hue<0.33?vec3(1.,.8,.5):hue<0.66?vec3(.3,.9,1.):vec3(1.,.4,.9);
+  float flick=0.7+0.3*sin(u_time*5.+hash(wq+cell)*40.);
+  col=mix(col,vec3(0.03,0.04,0.07),blk*0.5);
+  col+=wc*win*blk*0.9*flick;
+  // neon strip on some blocks
+  float neon=step(0.8,hash(cell+2.2))*smoothstep(0.03,0.,abs(abs(bq.x)-0.98))*step(abs(bq.y),1.);
+  col+=wc*neon*2.;
+  // cars
+  float carY=smoothstep(0.05,0.02,abs(f.y-0.04)); float cx=fract(q.x*0.5-u_time*(0.8+0.5*hash1(cell.y))+hash1(cell.y*3.));
+  float car=exp(-pow((cx-0.5)*40.,2.))*carY; col+=vec3(1.,.9,.7)*car*3.;
+  float carY2=smoothstep(0.05,0.02,abs(f.y-0.96)); float cx2=fract(q.x*0.5+u_time*(0.7+0.5*hash1(cell.y+9.))+hash1(cell.y*2.));
+  col+=vec3(1.,.2,.15)*exp(-pow((cx2-0.5)*40.,2.))*carY2*3.;
+  // haze
+  col+=vec3(0.1,0.2,0.4)*fbm3(uv*3.+u_time*0.2)*0.25;
+  col*=1.2-0.5*smoothstep(0.,1.4,length(uv));
+  return col;
+}
+/* ---------- 3 CLOUDS ---------- */
+vec3 wClouds(vec2 uv, float p){
+  float s=mix(0.5,4.5,p); vec2 q=uv*s; q.x+=u_time*0.25;
+  vec3 sky=mix(vec3(1.,.55,.25),vec3(0.45,0.75,1.),smoothstep(-0.6,0.9,uv.y));
+  sky=mix(sky,vec3(0.1,0.25,0.6),smoothstep(0.6,1.6,uv.y*s*0.3));
+  float n=fbm(q*1.3+fbm(q*1.8+u_time*0.1)*0.7);
+  float cl=smoothstep(0.42,0.72,n);
+  float n2=fbm(q*2.6+vec2(0.,-0.4)); float shade=mix(0.75,1.1,n2);
+  vec3 cc=mix(vec3(1.,.75,.6),vec3(1.),shade);
+  cc=mix(cc,vec3(1.,.85,.5),smoothstep(0.,-0.5,uv.y)*0.5);
+  vec3 col=mix(sky,cc,cl);
+  col+=vec3(1.,.7,.3)*exp(-length(uv-vec2(-0.3,-0.3))*1.5)*0.5; // sun
+  // god rays
+  float a=atan(uv.y+0.3,uv.x+0.3); col+=vec3(1.,.8,.5)*0.08*(0.5+0.5*sin(a*14.+u_time*0.5))*smoothstep(1.2,0.,length(uv+0.3));
+  // horizon curvature as we zoom out
+  float horiz=smoothstep(0.0,0.3,(length((uv+vec2(0.,2.2))*vec2(1.,1.))-2.9)+ (1.-p)*2.);
+  col=mix(col,vec3(0.02,0.04,0.12)+starfield(uv),horiz*smoothstep(0.5,1.,p));
+  return col;
+}
+/* ---------- sphere helper ---------- */
+vec3 sphereN(vec2 q){ float r2=dot(q,q); return vec3(q, sqrt(max(1.-r2,0.))); }
+/* ---------- 4 EARTH ---------- */
+vec3 wEarth(vec2 uv, float p){
+  float s=mix(0.28,2.6,p); vec2 q=uv*s;
+  vec3 col=vec3(0.005,0.01,0.03)+starfield(uv*0.8);
+  float r=length(q);
+  vec3 L=normalize(vec3(-0.6,0.35,0.7));
+  // atmosphere
+  col+=vec3(0.3,0.6,1.)*exp(-(r-1.)*6.)*step(1.,r)*0.9;
+  if(r<1.){
+    vec3 n=sphereN(q);
+    float a=u_time*0.12;
+    vec3 nr=vec3(n.x*cos(a)-n.z*sin(a), n.y, n.x*sin(a)+n.z*cos(a));
+    float lon=atan(nr.x,nr.z), lat=asin(clamp(nr.y,-1.,1.));
+    vec2 m=vec2(lon*1.1,lat*1.6);
+    float land=fbm(m*1.4+3.);
+    float isLand=smoothstep(0.5,0.54,land);
+    vec3 ocean=mix(vec3(0.02,0.15,0.45),vec3(0.05,0.35,0.7),smoothstep(0.3,0.5,land));
+    vec3 ground=mix(vec3(0.1,0.4,0.12),vec3(0.5,0.4,0.2),fbm3(m*5.));
+    ground=mix(ground,vec3(0.9),smoothstep(0.9,1.3,abs(lat)));
+    vec3 surf=mix(ocean,ground,isLand);
+    float cloud=smoothstep(0.52,0.7,fbm(m*2.2+vec2(u_time*0.04,0.)+11.));
+    surf=mix(surf,vec3(1.),cloud*0.9);
+    float diff=max(dot(n,L),0.);
+    float spec=pow(max(dot(reflect(-L,n),vec3(0,0,1)),0.),40.)*(1.-isLand)*(1.-cloud);
+    float night=smoothstep(0.15,-0.1,dot(n,L));
+    float lights=step(0.85,noise(m*60.))*isLand*(1.-cloud)*step(0.45,fbm3(m*6.));
+    vec3 day=surf*(diff*1.1+0.05)+vec3(1.)*spec*0.6;
+    vec3 nite=vec3(0.01,0.02,0.05)+vec3(1.,.7,.3)*lights*1.5;
+    vec3 e=mix(day,nite,night);
+    float rim=pow(1.-n.z,3.); e+=vec3(0.3,0.6,1.)*rim*0.8*(diff+0.2);
+    col=e;
+  }
+  return col;
+}
+/* ---------- 5 MOON ---------- */
+float crater(vec2 m, float sc){
+  vec2 i=floor(m*sc), f=fract(m*sc); float v=0.;
+  for(int y=-1;y<=1;y++)for(int x=-1;x<=1;x++){
+    vec2 o=vec2(x,y); vec2 c=o+vec2(hash(i+o),hash(i+o+5.))*0.7+0.15;
+    float rad=0.15+0.3*hash(i+o+9.); float d=length(f-c);
+    float ring=smoothstep(rad,rad-0.08,d)-smoothstep(rad-0.08,rad-0.2,d)*0.6;
+    v+=ring*step(0.4,hash(i+o+2.));
+  }
+  return v;
+}
+vec3 wMoon(vec2 uv, float p){
+  float s=mix(0.3,3.2,p); vec2 q=uv*s;
+  vec3 col=vec3(0.004,0.006,0.02)+starfield(uv*0.9+3.);
+  // little Earth in background
+  vec2 eq=(uv-vec2(0.28,0.72))*4.5; float er=length(eq);
+  col+=vec3(0.3,0.6,1.)*exp(-(er-1.)*5.)*step(1.,er)*0.5;
+  if(er<1.){ vec3 n=sphereN(eq); float l=fbm(vec2(atan(n.x,n.z),n.y)*2.+u_time*0.05);
+    col=mix(vec3(0.05,0.3,0.7),vec3(0.2,0.5,0.2),smoothstep(0.5,0.55,l))*(max(dot(n,normalize(vec3(-0.5,0.3,0.8))),0.)+0.05); }
+  float r=length(q);
+  vec3 L=normalize(vec3(0.7,0.4,0.6));
+  if(r<1.){
+    vec3 n=sphereN(q); float a=u_time*0.06;
+    vec3 nr=vec3(n.x*cos(a)-n.z*sin(a),n.y,n.x*sin(a)+n.z*cos(a));
+    vec2 m=vec2(atan(nr.x,nr.z)*1.2,asin(clamp(nr.y,-1.,1.))*1.4);
+    float base=0.45+0.35*fbm(m*2.);
+    float cr=crater(m,3.)*0.5+crater(m,8.)*0.3+crater(m,20.)*0.15;
+    float mare=smoothstep(0.55,0.65,fbm(m*1.3+7.));
+    vec3 g=vec3(base)*mix(1.,0.55,mare);
+    // bump light
+    float e=0.02; float h0=crater(m,8.); float h1=crater(m+vec2(e,0.),8.);
+    float diff=max(dot(n,L)+ (h1-h0)*6.,0.);
+    col=g*(diff*1.2+0.03)+vec3(cr)*diff*0.4;
+    col+=vec3(0.6,0.7,1.)*pow(1.-n.z,4.)*0.15;
+  }
+  return col;
+}
+/* ---------- 6 SATURN ---------- */
+vec3 wSaturn(vec2 uv, float p){
+  float s=mix(0.42,3.4,p); vec2 q=uv*s;
+  vec3 col=vec3(0.003,0.005,0.015)+starfield(uv*0.7+9.);
+  vec3 L=normalize(vec3(-0.5,0.5,0.7));
+  q=rot(-0.35)*q;
+  float r=length(q);
+  // rings coords
+  vec2 rq=vec2(q.x,q.y/0.28); float rr=length(rq);
+  float ringMask=smoothstep(1.25,1.3,rr)*smoothstep(2.45,2.4,rr);
+  float band=0.35+0.65*noise(vec2(rr*14.,0.)); band*=smoothstep(0.02,0.08,abs(rr-2.0)); // Cassini gap
+  band*=0.6+0.4*noise(vec2(rr*50.,1.));
+  vec3 ringCol=mix(vec3(0.75,0.65,0.5),vec3(0.95,0.9,0.8),noise(vec2(rr*7.,3.)))*band;
+  float shadow=1.-0.85*smoothstep(0.3,0.,abs(q.x)-1.)*step(0.,q.y)*step(r,2.2);
+  vec3 planet=vec3(0.);
+  float planetMask=0.;
+  if(r<1.){
+    vec3 n=sphereN(q); float a=u_time*0.1;
+    vec3 nr=vec3(n.x*cos(a)-n.z*sin(a),n.y,n.x*sin(a)+n.z*cos(a));
+    float lat=asin(clamp(nr.y,-1.,1.)); float lon=atan(nr.x,nr.z);
+    float b=noise(vec2(lon*0.6+lat*0.5,lat*9.))*0.5+noise(vec2(lat*22.,lon*0.3))*0.5;
+    planet=mix(vec3(0.85,0.72,0.5),vec3(0.98,0.9,0.75),b);
+    planet=mix(planet,vec3(0.6,0.5,0.4),smoothstep(0.6,0.8,abs(lat)/1.3));
+    float diff=max(dot(n,L),0.);
+    // ring shadow on planet
+    float rs=smoothstep(0.05,0.,abs(q.y/0.28+q.x*0.0-(-0.0))-0.0);
+    float ringShadow=1.-0.7*smoothstep(0.06,0.,abs(rq.y+1.8))*0.0;
+    planet=planet*(diff*1.15+0.04)*ringShadow;
+    planet+=vec3(0.9,0.8,0.6)*pow(1.-n.z,4.)*0.2;
+    planetMask=1.;
+  }
+  // back half of ring (behind planet) is where q.y>0
+  float back=step(0.,q.y);
+  vec3 ring=ringCol*ringMask*shadow*(0.75+0.35*max(dot(vec3(0,1,0),L),0.));
+  col=mix(col,ring,ringMask*back*step(1.,r)); // back rings outside planet only
+  col=mix(col,planet,planetMask);
+  col=mix(col,ring,ringMask*(1.-back));        // front rings over planet
+  col+=ring*0.15*ringMask; // glow
+  return col;
+}
+/* ---------- 7 SOLAR SYSTEM ---------- */
+vec3 wSolar(vec2 uv, float p){
+  float s=mix(0.35,9.,pow(max(p,0.),1.4)); vec2 q=uv*s;
+  vec3 col=vec3(0.003,0.004,0.012)+starfield(uv*0.8+4.);
+  vec2 oq=vec2(q.x,q.y/0.55); float r=length(oq);
+  float a=atan(q.y,q.x);
+  // sun
+  float sr=length(q);
+  float cor=fbm(vec2(a*3.,sr*4.-u_time*0.8)+u_time*0.2);
+  col+=vec3(1.,.6,.15)*exp(-sr*3.)*2.5*(0.8+0.5*cor);
+  col+=vec3(1.,.85,.5)*smoothstep(0.26,0.2,sr)*1.5;
+  col+=vec3(1.,.4,.1)*exp(-max(sr-0.22,0.)*9.)*cor;
+  // orbits + planets
+  for(int i=0;i<8;i++){
+    float fi=float(i); float R=0.55+fi*fi*0.09+fi*0.35;
+    float line=smoothstep(0.012*s,0.,abs(r-R))*0.25;
+    col+=vec3(0.4,0.7,1.)*line*0.4;
+    float sp=1.6/pow(R,1.4); float ang=u_time*sp*2.+fi*2.1;
+    vec2 pc=vec2(cos(ang),sin(ang)*0.55)*R;
+    float pr=0.04+0.02*mod(fi*1.7,1.0)+(i==4||i==5?0.08:0.);
+    float d=length(q-pc);
+    vec3 pcol= i==0?vec3(.6,.6,.6): i==1?vec3(.9,.7,.4): i==2?vec3(.2,.5,1.): i==3?vec3(1.,.4,.2): i==4?vec3(.8,.6,.4): i==5?vec3(.9,.8,.5): i==6?vec3(.5,.8,.9):vec3(.3,.4,1.);
+    float lit=0.5+0.5*dot(normalize(q-pc+1e-4),normalize(-pc));
+    col=mix(col,pcol*(0.4+lit),smoothstep(pr,pr*0.8,d));
+    col+=pcol*exp(-d/pr*1.5)*0.3;
+    if(i==5){ vec2 rq=(q-pc)*rot(0.4); float rr=length(vec2(rq.x,rq.y/0.3)); col+=vec3(.9,.8,.6)*smoothstep(0.01,0.,abs(rr-pr*2.)-pr*0.5)*0.7; }
+  }
+  // asteroid belt
+  float belt=smoothstep(0.3,0.,abs(r-2.95))*step(0.93,noise(vec2(a*60.+u_time*0.2,r*30.)));
+  col+=vec3(0.6,0.55,0.5)*belt;
+  return col;
+}
+/* ---------- 8 GALAXY ---------- */
+vec3 wGalaxy(vec2 uv, float p){
+  float s=mix(0.45,4.,p); vec2 q=uv*s;
+  vec3 col=vec3(0.002,0.003,0.01)+starfield(uv*0.6+8.)*0.8;
+  q=rot(u_time*0.05)*q; vec2 gq=vec2(q.x,q.y/0.72); gq=rot(0.3)*gq;
+  float r=length(gq)+1e-4, a=atan(gq.y,gq.x);
+  float arm=0.5+0.5*sin(2.*a-log(r)*4.5);
+  arm=pow(arm,2.5);
+  float dens=exp(-r*1.1)*(0.25+arm)*fbm(gq*2.5+vec2(u_time*0.05,0.))*2.2;
+  float dust=smoothstep(0.55,0.75,fbm(gq*3.5+7.))*exp(-r*0.9);
+  vec3 armCol=mix(vec3(0.5,0.6,1.),vec3(1.,0.6,0.8),fbm3(gq*1.5));
+  col+=armCol*dens*(1.-dust*0.8);
+  col+=vec3(1.,0.85,0.6)*exp(-r*4.)*2.2;
+  col+=vec3(1.,.95,.9)*exp(-r*12.)*3.;
+  vec2 sq=gq*18.; col+=stars(sq,0.12)*arm*exp(-r*0.7)*2.5+stars(sq*2.+3.,0.06)*exp(-r*0.9)*1.5;
+  // blue knots
+  col+=vec3(0.4,0.6,1.)*step(0.9,noise(gq*14.+u_time*0.1))*arm*exp(-r)*1.5;
+  return col;
+}
+/* ---------- 9 BLACK HOLE ---------- */
+vec3 wHole(vec2 uv, float p){
+  float s=mix(3.2,0.32,smoothstep(0.,1.,p)); vec2 q=uv*s;
+  float r=length(q)+1e-4;
+  // lensing: bend background
+  vec2 lq=q*(1.+0.9/(r*r+0.15));
+  vec3 col=vec3(0.002,0.003,0.01)+starfield(lq*0.35+2.)*0.9;
+  // distant galaxy smear
+  col+=vec3(0.3,0.4,0.9)*fbm3(lq*0.6+u_time*0.02)*0.12;
+  // accretion disk (front)
+  float tilt=0.26; vec2 dq=vec2(q.x,q.y/tilt); float dr=length(dq); float da=atan(dq.y,dq.x);
+  float inDisk=smoothstep(1.15,1.3,dr)*smoothstep(3.3,2.6,dr);
+  float streak=0.55+0.45*noise(vec2(dr*9.-u_time*1.5, da*4.+u_time*2.5/dr));
+  streak*=0.6+0.4*noise(vec2(dr*30.,da*2.-u_time*3.));
+  float dop=1.+0.8*sin(da+0.3); // doppler brightening on one side
+  vec3 dcol=mix(vec3(1.,0.35,0.1),vec3(1.,0.9,0.7),smoothstep(2.6,1.3,dr));
+  float heat=pow(smoothstep(3.3,1.2,dr),1.5);
+  vec3 disk=dcol*inDisk*streak*dop*(0.7+heat*2.5);
+  // lensed top arc (disk's far side bent over the hole)
+  vec2 aq=vec2(q.x,(q.y)/0.6); float ar=length(aq); float arc=smoothstep(1.05,1.15,ar)*smoothstep(1.7,1.3,ar)*step(0.,q.y);
+  float arcN=0.6+0.4*noise(vec2(ar*20.,atan(aq.y,aq.x)*4.-u_time*2.));
+  vec3 arcCol=vec3(1.,.7,.4)*arc*arcN*1.4;
+  float back=step(0.,q.y);
+  col+=disk*back*step(1.,r)*0.9; // far side behind hole
+  col+=arcCol;
+  // photon ring + horizon
+  col+=vec3(1.,.95,.85)*exp(-abs(r-1.02)*30.)*2.5;
+  col+=vec3(1.,.6,.3)*exp(-abs(r-1.02)*6.)*0.5;
+  col=mix(col,vec3(0.),smoothstep(1.0,0.97,r));
+  col+=disk*(1.-back); // near side over everything
+  return col;
+}
+
+vec3 world(int k, vec2 uv, float p){
+  p=max(p,0.);
+  if(k==0) return wChip(uv,p); if(k==1) return wLaptop(uv,p); if(k==2) return wCity(uv,p);
+  if(k==3) return wClouds(uv,p); if(k==4) return wEarth(uv,p); if(k==5) return wMoon(uv,p);
+  if(k==6) return wSaturn(uv,p); if(k==7) return wSolar(uv,p); if(k==8) return wGalaxy(uv,p);
+  return wHole(uv,p);
+}
+
+void main(){
+  vec2 uv=(gl_FragCoord.xy-0.5*u_res)/u_res.y*2.;
+  float t=u_time; float D=u_seg; float T=D*NW;
+  float lt=mod(t,T);
+  float kf=floor(lt/D); int k=int(kf); float p=(lt-kf*D)/D;
+  // beat (120 BPM)
+  float beat=fract(t*2.); float benv=exp(-beat*7.);
+  float worldStart=p*D; float wenv=exp(-worldStart*5.);
+  // camera: tilt from drag + idle drift
+  vec2 tilt=u_tilt+vec2(sin(t*0.7),cos(t*0.9))*0.02;
+  uv=rot(tilt.x*0.25)*uv; uv+=tilt*0.35; uv*=1.+tilt.y*0.15;
+  // beat pump + morph warp near transition
+  float O=0.55/D; // overlap in p
+  float w=smoothstep(1.-O,1.,p);
+  float ww=w*(1.-w)*4.; // bump peaks mid-transition
+  float rr=length(uv);
+  vec2 muv=uv*(1.+ww*0.12*sin(rr*9.-t*25.))+ww*0.04*vec2(sin(t*31.),cos(t*27.));
+  muv*=1.-benv*0.03-wenv*0.06;
+  vec3 ca=world(k,muv,p);
+  vec3 col=ca;
+  if(w>0.001){
+    int k2=int(mod(kf+1.,NW)); float p2=p-1.;
+    vec2 muv2=uv*(1.-ww*0.1*sin(rr*7.+t*22.));
+    muv2*=1.-benv*0.03;
+    vec3 cb=world(k2,muv2,p2);
+    col=mix(ca,cb,smoothstep(0.35,0.65,w));
+    col+=vec3(1.,.9,.8)*ww*0.35; // flash
+    col+=vec3(0.6,0.85,1.)*ww*smoothstep(0.2,0.,abs(rr-0.9*(1.-w)))*0.7; // shock ring
+  }
+  // impact flash at world start
+  col+=vec3(1.)*wenv*0.35;
+  col+=vec3(0.15)*benv*0.18;
+  // vignette + grain
+  col*=1.-0.45*smoothstep(0.5,1.5,rr);
+  col+=(hash(gl_FragCoord.xy+fract(t))-0.5)*0.035;
+  col=pow(max(col,0.),vec3(0.95));
+  col=col/(1.+col*0.15);
+  gl_FragColor=vec4(col,1.);
+}
+</script>
+
+<script>
+(function(){
+  const SEG=3.5, NW=10, LOOP=SEG*NW, BPM=120, BEAT=60/BPM;
+  const names=['CHIP','LAPTOP','NEON CITY','CLOUDS','EARTH','MOON','SATURN','SOLAR SYSTEM','GALAXY','BLACK HOLE'];
+  const cv=document.getElementById('gl');
+  const gl=cv.getContext('webgl',{antialias:false,preserveDrawingBuffer:true});
+  const hook=document.getElementById('hook'), hud=document.getElementById('hud'), startEl=document.getElementById('start');
+  const worldEl=document.getElementById('world'), beatEl=document.getElementById('beat');
+  function sh(type,src){const s=gl.createShader(type);gl.shaderSource(s,src);gl.compileShader(s);
+    if(!gl.getShaderParameter(s,gl.COMPILE_STATUS)){console.error(gl.getShaderInfoLog(s));throw new Error('shader');}return s;}
+  const prog=gl.createProgram();
+  gl.attachShader(prog,sh(gl.VERTEX_SHADER,document.getElementById('vs').textContent));
+  gl.attachShader(prog,sh(gl.FRAGMENT_SHADER,document.getElementById('fs').textContent));
+  gl.linkProgram(prog); gl.useProgram(prog);
+  const buf=gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER,buf);
+  gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);
+  const loc=gl.getAttribLocation(prog,'a'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc,2,gl.FLOAT,false,0,0);
+  const uRes=gl.getUniformLocation(prog,'u_res'), uTime=gl.getUniformLocation(prog,'u_time'),
+        uTilt=gl.getUniformLocation(prog,'u_tilt'), uSeg=gl.getUniformLocation(prog,'u_seg');
+  let W=0,H=0; const qp=new URLSearchParams(location.search);
+  const DPR=Math.min(window.devicePixelRatio||1, +(qp.get('dpr')||1.25));
+  function resize(){W=Math.floor(innerWidth*DPR);H=Math.floor(innerHeight*DPR);cv.width=W;cv.height=H;gl.viewport(0,0,W,H);}
+  addEventListener('resize',resize); resize();
+
+  /* ---- interaction: drag to tilt ---- */
+  let tilt=[0,0], target=[0,0], dragging=false, lx=0, ly=0;
+  cv.addEventListener('pointerdown',e=>{dragging=true;lx=e.clientX;ly=e.clientY;cv.setPointerCapture(e.pointerId);});
+  cv.addEventListener('pointermove',e=>{ if(!dragging) return; target[0]+= (e.clientX-lx)/innerWidth*1.6; target[1]-=(e.clientY-ly)/innerHeight*1.6;
+    target[0]=Math.max(-0.6,Math.min(0.6,target[0])); target[1]=Math.max(-0.6,Math.min(0.6,target[1])); lx=e.clientX; ly=e.clientY;});
+  const up=()=>{dragging=false;}; cv.addEventListener('pointerup',up); cv.addEventListener('pointercancel',up);
+  addEventListener('wheel',e=>{ target[0]+=e.deltaX/600; target[1]-=e.deltaY/600;
+    target[0]=Math.max(-0.6,Math.min(0.6,target[0])); target[1]=Math.max(-0.6,Math.min(0.6,target[1])); },{passive:true});
+
+  /* ---- procedural music (WebAudio) ---- */
+  let ac=null, master=null, muted=false, audioStart=0;
+  const chords=[ [45,'m'],[41,'M'],[48,'M'],[43,'M'],[38,'m'],[45,'m'],[40,'M'],[41,'M'],[43,'M'],[45,'m'] ];
+  const f=m=>440*Math.pow(2,(m-69)/12);
+  function makeReverb(){ const len=ac.sampleRate*1.8, b=ac.createBuffer(2,len,ac.sampleRate);
+    for(let c=0;c<2;c++){const d=b.getChannelData(c);for(let i=0;i<len;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/len,2.8);}
+    const cv=ac.createConvolver(); cv.buffer=b; return cv; }
+  let rev, revGain, noiseBuf;
+  function initAudio(){
+    ac=new (window.AudioContext||window.webkitAudioContext)();
+    master=ac.createGain(); master.gain.value=0.8;
+    const comp=ac.createDynamicsCompressor(); comp.threshold.value=-14; comp.ratio.value=4; comp.attack.value=0.004; comp.release.value=0.15;
+    master.connect(comp); comp.connect(ac.destination);
+    rev=makeReverb(); revGain=ac.createGain(); revGain.gain.value=0.22; rev.connect(revGain); revGain.connect(master);
+    const n=ac.sampleRate*2; noiseBuf=ac.createBuffer(1,n,ac.sampleRate); const d=noiseBuf.getChannelData(0); for(let i=0;i<n;i++)d[i]=Math.random()*2-1;
+    audioStart=ac.currentTime+0.1;
+  }
+  function env(g,t,a,d,s,r,peak){ g.gain.cancelScheduledValues(t); g.gain.setValueAtTime(0.0001,t); g.gain.exponentialRampToValueAtTime(peak,t+a);
+    g.gain.exponentialRampToValueAtTime(Math.max(peak*s,0.0001),t+a+d); g.gain.exponentialRampToValueAtTime(0.0001,t+a+d+r); }
+  function kick(t){ const o=ac.createOscillator(), g=ac.createGain(); o.frequency.setValueAtTime(160,t); o.frequency.exponentialRampToValueAtTime(42,t+0.09);
+    env(g,t,0.002,0.08,0.3,0.22,0.9); o.connect(g); g.connect(master); o.start(t); o.stop(t+0.4); }
+  function noiseHit(t,hp,len,vol,q){ const s=ac.createBufferSource(); s.buffer=noiseBuf; const fl=ac.createBiquadFilter(); fl.type=q||'highpass'; fl.frequency.value=hp;
+    const g=ac.createGain(); env(g,t,0.001,len*0.3,0.2,len*0.7,vol); s.connect(fl); fl.connect(g); g.connect(master); g.connect(rev); s.start(t); s.stop(t+len+0.1); }
+  function pluck(t,midi,vol,len){ const o=ac.createOscillator(), o2=ac.createOscillator(), g=ac.createGain(), fl=ac.createBiquadFilter();
+    o.type='sawtooth'; o2.type='square'; o.frequency.value=f(midi); o2.frequency.value=f(midi)*1.005; fl.type='lowpass';
+    fl.frequency.setValueAtTime(5000,t); fl.frequency.exponentialRampToValueAtTime(600,t+len); fl.Q.value=4;
+    env(g,t,0.003,len*0.5,0.15,len*0.5,vol); o.connect(fl); o2.connect(fl); fl.connect(g); g.connect(master); g.connect(rev); o.start(t); o2.start(t); o.stop(t+len+0.1); o2.stop(t+len+0.1); }
+  function bass(t,midi,len){ const o=ac.createOscillator(), g=ac.createGain(), fl=ac.createBiquadFilter(); o.type='sawtooth'; o.frequency.value=f(midi);
+    fl.type='lowpass'; fl.frequency.setValueAtTime(900,t); fl.frequency.exponentialRampToValueAtTime(160,t+len); fl.Q.value=6;
+    env(g,t,0.004,len*0.4,0.4,len*0.4,0.5); o.connect(fl); fl.connect(g); g.connect(master); o.start(t); o.stop(t+len+0.1); }
+  function pad(t,root,kind,len){ const tones=kind==='m'?[0,3,7,10]:[0,4,7,11]; const g=ac.createGain(); const fl=ac.createBiquadFilter(); fl.type='lowpass'; fl.frequency.value=1400;
+    env(g,t,0.6,len*0.4,0.8,0.8,0.08); fl.connect(g); g.connect(master); g.connect(rev);
+    tones.forEach((iv,i)=>{ for(let d=-1;d<=1;d+=2){ const o=ac.createOscillator(); o.type='sawtooth'; o.frequency.value=f(root+12+iv); o.detune.value=d*9; o.connect(fl); o.start(t); o.stop(t+len+1.2);} }); }
+  function riser(t,len){ const s=ac.createBufferSource(); s.buffer=noiseBuf; const fl=ac.createBiquadFilter(); fl.type='bandpass'; fl.Q.value=2;
+    fl.frequency.setValueAtTime(300,t); fl.frequency.exponentialRampToValueAtTime(6000,t+len); const g=ac.createGain(); g.gain.setValueAtTime(0.0001,t); g.gain.exponentialRampToValueAtTime(0.35,t+len); g.gain.setValueAtTime(0.0001,t+len+0.01);
+    s.connect(fl); fl.connect(g); g.connect(master); g.connect(rev); s.start(t); s.stop(t+len+0.05); }
+  function impact(t){ const o=ac.createOscillator(), g=ac.createGain(); o.frequency.setValueAtTime(90,t); o.frequency.exponentialRampToValueAtTime(30,t+0.5);
+    env(g,t,0.003,0.3,0.3,0.5,1.0); o.connect(g); g.connect(master); g.connect(rev); o.start(t); o.stop(t+1.0); noiseHit(t,1200,0.5,0.5,'lowpass'); }
+  let nextBeat=0; const scheduled=new Set();
+  function schedule(){
+    if(!ac||muted) return;
+    const now=ac.currentTime; const horizon=now+0.25;
+    while(audioStart+nextBeat*BEAT<horizon){
+      const b=nextBeat, t=audioStart+b*BEAT; const lb=b%70; const wi=Math.floor(lb/7); const bw=lb%7;
+      const [root,kind]=chords[wi];
+      kick(t);
+      if(bw%2===1) noiseHit(t,1800,0.18,0.35);          // clap/snare on odd beats
+      noiseHit(t,7000,0.05,0.12); noiseHit(t+BEAT/2,6000,0.09,0.09); // hats
+      const tones=kind==='m'?[0,3,7,12,15,12,7,3]:[0,4,7,12,16,12,7,4];
+      for(let i=0;i<4;i++){ const st=t+i*BEAT/4; const idx=(bw*4+i)%8; pluck(st,root+24+tones[idx],0.13,0.18); }
+      bass(t,root,BEAT*0.45); bass(t+BEAT/2,root+(bw===6?7:0),BEAT*0.4);
+      if(bw===0){ pad(t,root,kind,BEAT*7); impact(t); }
+      if(bw===6) riser(t,BEAT);
+      nextBeat++;
+    }
+  }
+  setInterval(schedule,40);
+
+  /* ---- clock ---- */
+  let paused=false, pauseAt=0, manualT=null, t0=performance.now()/1000;
+  function now(){ if(manualT!==null) return manualT; if(ac) return Math.max(0,ac.currentTime-audioStart); return performance.now()/1000-t0; }
+  window.__setTime=t=>{manualT=t; frame();}; window.__ready=true;
+
+  function frame(){
+    const t=now(); const lt=t%LOOP;
+    gl.uniform2f(uRes,W,H); gl.uniform1f(uTime,t); gl.uniform1f(uSeg,SEG);
+    tilt[0]+=(target[0]-tilt[0])*0.08; tilt[1]+=(target[1]-tilt[1])*0.08; if(!dragging){target[0]*=0.985;target[1]*=0.985;}
+    gl.uniform2f(uTilt,tilt[0],tilt[1]);
+    gl.drawArrays(gl.TRIANGLES,0,3);
+    const k=Math.floor(lt/SEG); worldEl.textContent=names[k]; beatEl.textContent='● '.repeat(Math.floor((lt%SEG)/BEAT)+1);
+    const showHook=lt<3.2 && !hidden; hook.classList.toggle('hide',!showHook);
+  }
+  let hidden=false;
+  function loop(){ if(manualT===null) frame(); requestAnimationFrame(loop); }
+  requestAnimationFrame(loop);
+
+  /* ---- controls ---- */
+  function start(){ startEl.classList.add('hide'); if(!ac){ try{initAudio();}catch(e){console.warn(e);} } }
+  startEl.addEventListener('click',()=>{ start(); if(document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(()=>{}); });
+  if(qp.get('auto')==='1'){ startEl.classList.add('hide'); }
+  addEventListener('keydown',e=>{
+    if(e.key==='f'||e.key==='F'){ document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen(); }
+    if(e.key==='h'||e.key==='H'){ hidden=!hidden; hud.classList.toggle('hide',hidden); }
+    if(e.key==='m'||e.key==='M'){ muted=!muted; if(master) master.gain.value=muted?0:0.8; }
+    if(e.key==='Escape'){ }
+  });
+})();
+</script>
+</body>
+</html>
