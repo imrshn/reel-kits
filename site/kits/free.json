@@ -1,0 +1,93 @@
+{
+  "slug": "free",
+  "keyword": "FREE",
+  "type": "Tool list",
+  "date": "2026-11-06",
+  "draft": false,
+  "name": "7 paid apps, free on GitHub",
+  "version_label": "List v1.0 · Nov 2026",
+  "headline": "7 paid apps with a *free version* on GitHub",
+  "summary": "ChatGPT, Notion, ElevenLabs and four more, each with a free open-source twin on GitHub. Links, what each one does, and the fine print.",
+  "sections": [
+    {
+      "type": "tools",
+      "id": "apps",
+      "tab": "The 7 apps",
+      "eyebrow": "From the reel",
+      "title": "The *free versions*",
+      "intro": "Sorted by GitHub stars (Nov 2026). Tap Open to see the project on GitHub.",
+      "items": [
+        {
+          "name": "Open WebUI",
+          "icon": "💬",
+          "price": "Replaces ChatGPT · 158K ★",
+          "what": "Chat with AI models that run on your own computer, or plug in a cloud API. Local models need a fairly strong computer.",
+          "url": "https://github.com/open-webui/open-webui"
+        },
+        {
+          "name": "Stirling PDF",
+          "icon": "📄",
+          "price": "Replaces Adobe Acrobat · 96K ★",
+          "what": "Merge, split, compress and sign PDFs, and turn scans into text. Free for individuals and teams of up to 5.",
+          "url": "https://github.com/Stirling-Tools/Stirling-PDF"
+        },
+        {
+          "name": "AppFlowy",
+          "icon": "📝",
+          "price": "Replaces Notion · 78K ★",
+          "what": "Notes, docs and wikis, and your data stays yours. Its local AI with Ollama is free too.",
+          "url": "https://github.com/AppFlowy-IO/AppFlowy"
+        },
+        {
+          "name": "Plane",
+          "icon": "📋",
+          "price": "Replaces Jira · 62K ★",
+          "what": "Tasks, sprints and docs for your team, on your own server. There's also a free cloud plan for up to 12 people.",
+          "url": "https://github.com/makeplane/plane"
+        },
+        {
+          "name": "Voicebox",
+          "icon": "🎙️",
+          "price": "Replaces ElevenLabs · 60K ★",
+          "what": "Clone a voice from about 3 seconds of audio, running entirely on your own laptop.",
+          "url": "https://github.com/jamiepine/voicebox"
+        },
+        {
+          "name": "Chatwoot",
+          "icon": "📥",
+          "price": "Replaces Intercom · 39K ★",
+          "what": "Website chat, email, WhatsApp and Instagram messages in one shared inbox. Some enterprise features are paid.",
+          "url": "https://github.com/chatwoot/chatwoot"
+        },
+        {
+          "name": "OpenWhispr",
+          "icon": "⌨️",
+          "price": "Replaces Wispr Flow · 11K ★",
+          "what": "You talk, it types into any app, even offline. Cloud models are optional with your own API key.",
+          "url": "https://github.com/OpenWhispr/openwhispr"
+        }
+      ]
+    },
+    {
+      "type": "about",
+      "id": "fine-print",
+      "tab": "Before you use one",
+      "eyebrow": "Good to know",
+      "title": "The *fine print*",
+      "features": [
+        {
+          "title": "Free to use, not always free for companies",
+          "text": "Stirling PDF is free up to 5 users, and Chatwoot keeps some enterprise features paid. Check each project's LICENSE file before you use one at work."
+        },
+        {
+          "title": "Most of them run on your own machine",
+          "text": "That's why your data stays yours. It also means you install and update them yourself. Each GitHub page has the install steps."
+        },
+        {
+          "title": "Star counts change",
+          "text": "Stars were counted on 6 Nov 2026. They only go up, so the order may shift."
+        }
+      ]
+    }
+  ]
+}
