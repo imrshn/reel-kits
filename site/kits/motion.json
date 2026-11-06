@@ -1,0 +1,69 @@
+{
+  "slug": "motion",
+  "keyword": "MOTION",
+  "type": "Prompt pack",
+  "date": "2026-11-07",
+  "draft": false,
+  "name": "One Claude prompt, full animation",
+  "version_label": "Prompt v1.0 · Nov 2026",
+  "headline": "The *one prompt* that made the animation",
+  "summary": "The exact Claude prompt behind the MOTION reel: one HTML file of kinetic type, neon effects and camera moves, no video tool needed.",
+  "sections": [
+    {
+      "type": "prompts",
+      "id": "prompt",
+      "tab": "The prompt",
+      "eyebrow": "Copy and paste",
+      "title": "The *prompt*",
+      "intro": "Paste it into a new Claude chat with Fable selected. It's long on purpose: every scene and timing is spelled out.",
+      "items": [
+        {
+          "tag": "Prompt",
+          "title": "Build the kinetic-type animation",
+          "note": "Gives you one HTML file. Open it in your browser and click to play.",
+          "text": "Build me a kinetic-typography motion-graphics piece as ONE self-contained HTML file. No libraries, no images, no build step: just HTML, CSS and JavaScript in a single file that I open in a browser and play full screen. It must look like a premium, bright, futuristic launch piece, not a slideshow.\n\n## Look\n- Dark \"neon signal\" style: near-black background (#050508), electric blue (#2D6BFF) and hot magenta (#FF2D8A) as the only colours, white type. A faint blue grid that drifts, two slow neon rings, blue and magenta halos, drifting glowing dots, a slow light sweep, fine scanlines and film grain over everything.\n- Every big word gets a chromatic split: a blue copy and a magenta copy of each letter sit behind the white letter and fly apart on impact, then settle 3 px either side. Big words glow (blue or magenta text shadow).\n- Fonts from Google Fonts: Anybody (a variable font with a width axis from 50 to 150, so letters can really stretch, not just scale), JetBrains Mono for HUD readouts and code, Instrument Serif italic for the small connective words.\n- Chips are outlined neon pills; strike-throughs are magenta bars that slash in with a glow. Panels are dark glass with a blue border.\n- The ONE contrast moment is inverted: at \"That cut\" the frame snaps to white with black type, holds through \"All of it,\" then snaps back to black on \"code\".\n- Hits: on every slam a 100 ms white flash over the frame, and a shock ring that expands and fades. A glitch burst (coloured scan bands jumping) on \"cut\" and on \"code\".\n- Stage is 1920x1080 and scales to fit any window. Never slow: something moves every frame, the picture changes every 2 to 4 seconds, and the camera drifts, pushes in, whips sideways with motion blur and pulls back. A running timecode sits top left.\n\n## How it plays\n- A click or the space bar starts it (browsers block autoplay). URL `?auto=1` skips the gate. `?t=12` jumps to 12 seconds and holds that frame. Expose `window.__seek(seconds)` so a script can render frames deterministically.\n- At time 0 show a 100 ms white flash (a sync marker for editing), then the piece starts at PRE = 0.8 s.\n- If a file named `vo.mp3` sits next to the HTML, play it from PRE; otherwise play silently.\n- Use the Web Animations API with a single timeline so seeking is exact. GPU-friendly properties only (transform, opacity, clip-path), 60 fps on a laptop.\n\n## The words\nAt the top of the file put an editable JS block: `LINES` (the spoken lines) and `WORDS` (each word with start and end seconds, measured from my voice recording). Every spoken word must appear on screen at its start time as big kinetic type. If someone edits the words and has no timings, spread the words evenly across each line's duration. The words and timings are below.\n\n## Scenes (times are voice seconds; add PRE)\n1. 0.0 \"This whole animation is one Claude prompt.\" THIS WHOLE ANIMATION flies in word by word, each word widening from narrow to extended as it lands; CLAUDE and PROMPT slam in letter by letter with a vertical stretch, chromatic split and shock rings, then the letters of PROMPT settle at different widths.\n2. 2.25 \"No After Effects, no plugin, no video tool\" as three chips that pop in and get struck through in red as said; 4.88 \"and it wrote every frame as code\": a wall of code scrolls behind EVERY FRAME, and \"code\" types itself in mono with a cursor.\n3. 7.31 \"I told Fable, Claude's newest model, what I wanted:\" a holo chip FABLE and the line typed like a chat. Then each item appears as said: 10.06 KINETIC TYPE with letters that bend in a wave, 10.86 MORPHING SHAPES with a blob that keeps morphing, 11.76 3D DEPTH on a card that tilts in perspective, 12.74 \"a camera that never sits still\" while the whole stage orbits.\n4. 14.85 \"It handed back one file.\" A file card `animation.html` drops in with a bounce; ONE FILE.\n5. 16.71 \"The way the letters stretch\": STRETCH starts at width 50 and squashed, then stretches to width 150 and beyond with its split copies flying wide. 18.49 \"That camera push\": the camera pushes in hard on a magenta PUSH. 19.88 \"That cut\": hard cut to a white frame with black CUT and a glitch burst.\n6. 20.99 \"All of it, code.\" Still on the white frame: black ALL OF IT, then on \"code\" snap back to black with a huge glowing mono \"code\" and a glitch burst.\n7. 22.87 \"So your workflow goes from layers, keyframes, graph editor, render\" as grey chips that stack and pile up, then collapse and fall at 27.42 \"to\"; \"describe, generate, open\" snap in big and bright with holo gradient, one per word.\n8. 29.84 \"And the part that got me?\" camera pulls back, big question mark. 31.75 \"It's not a video file\" a .mp4 file icon struck out. 33.46 \"It's live.\" LIVE with a pulsing green dot and rings.\n9. 34.73 \"Swap in your own words, and it plays again, with your text.\" A text field types YOUR WORDS HERE, then a small replay of scene 1 plays with that text.\n10. 38.26 \"Want yours? Open Claude, pick Fable, paste my prompt, and open the file it gives you.\" Four numbered step chips appear as said.\n11. 43.94 \"Comment MOTION and I'll send you the exact prompt.\" A comment panel: a bubble types MOTION, send, then an auto-reply \"Sending you the prompt\". Hold the end state with gentle motion until 50 s, then stop (no loop).\n\n## Words and timings (seconds)\n[ [\"This\",0.0,0.26],[\"whole\",0.27,0.52],[\"animation\",0.53,0.98],[\"is\",0.99,1.12],[\"one\",1.13,1.36],[\"Claude\",1.37,1.69],[\"prompt\",1.7,2.24],[\"No\",2.25,2.49],[\"After\",2.5,2.75],[\"Effects\",2.76,3.15],[\"no\",3.16,3.38],[\"plugin\",3.39,3.94],[\"no\",3.95,4.15],[\"video\",4.16,4.49],[\"tool\",4.5,4.87],[\"and\",4.88,5.2],[\"it\",5.21,5.29],[\"wrote\",5.3,5.57],[\"every\",5.58,5.89],[\"frame\",5.9,6.25],[\"as\",6.26,6.48],[\"code\",6.49,7.3],[\"I\",7.31,7.46],[\"told\",7.47,7.72],[\"Fable\",7.73,8.12],[\"Claude's\",8.13,8.52],[\"newest\",8.53,8.78],[\"model\",8.79,9.11],[\"what\",9.12,9.34],[\"I\",9.35,9.4],[\"wanted\",9.41,10.05],[\"kinetic\",10.06,10.45],[\"type\",10.46,10.85],[\"morphing\",10.86,11.24],[\"shapes\",11.25,11.75],[\"3D\",11.76,12.21],[\"depth\",12.22,12.73],[\"and\",12.74,12.9],[\"a\",12.91,12.95],[\"camera\",12.96,13.34],[\"that\",13.35,13.5],[\"never\",13.51,13.83],[\"sits\",13.84,14.13],[\"still\",14.14,14.84],[\"It\",14.85,14.98],[\"handed\",14.99,15.33],[\"back\",15.34,15.59],[\"one\",15.6,15.97],[\"file\",15.98,16.7],[\"The\",16.71,16.79],[\"way\",16.8,17.06],[\"the\",17.07,17.15],[\"letters\",17.16,17.54],[\"stretch\",17.55,18.48],[\"That\",18.49,18.74],[\"camera\",18.75,19.16],[\"push\",19.17,19.87],[\"That\",19.88,20.21],[\"cut\",20.22,20.98],[\"All\",20.99,21.37],[\"of\",21.38,21.49],[\"it\",21.5,21.89],[\"code\",21.9,22.86],[\"So\",22.87,23.04],[\"your\",23.05,23.26],[\"workflow\",23.27,23.75],[\"goes\",23.76,24.01],[\"from\",24.02,24.15],[\"layers\",24.16,24.74],[\"keyframes\",24.75,25.62],[\"graph\",25.63,25.97],[\"editor\",25.98,26.59],[\"render\",26.6,27.41],[\"to\",27.42,27.58],[\"describe\",27.59,28.47],[\"generate\",28.48,29.36],[\"open\",29.37,29.83],[\"And\",29.84,30.39],[\"the\",30.4,30.47],[\"part\",30.48,30.73],[\"that\",30.74,30.88],[\"got\",30.89,31.12],[\"me\",31.13,31.74],[\"It's\",31.75,31.95],[\"not\",31.96,32.21],[\"a\",32.22,32.26],[\"video\",32.27,32.65],[\"file\",32.66,33.45],[\"It's\",33.46,33.69],[\"live\",33.7,34.72],[\"Swap\",34.73,35.1],[\"in\",35.11,35.2],[\"your\",35.21,35.39],[\"own\",35.4,35.54],[\"words\",35.55,35.97],[\"and\",35.98,36.13],[\"it\",36.14,36.25],[\"plays\",36.26,36.55],[\"again\",36.56,37.08],[\"with\",37.09,37.26],[\"your\",37.27,37.45],[\"text\",37.46,38.25],[\"Want\",38.26,38.57],[\"yours\",38.58,39.28],[\"Open\",39.29,39.59],[\"Claude\",39.6,40.17],[\"pick\",40.18,40.42],[\"Fable\",40.43,41.1],[\"paste\",41.11,41.38],[\"my\",41.39,41.56],[\"prompt\",41.57,42.14],[\"and\",42.15,42.35],[\"open\",42.36,42.6],[\"the\",42.61,42.68],[\"file\",42.69,43.02],[\"it\",43.03,43.1],[\"gives\",43.11,43.36],[\"you\",43.37,43.93],[\"Comment\",43.94,44.49],[\"MOTION\",44.5,45.09],[\"and\",45.1,45.55],[\"I'll\",45.56,45.74],[\"send\",45.75,46.0],[\"you\",46.01,46.14],[\"the\",46.15,46.3],[\"exact\",46.31,46.77],[\"prompt\",46.78,47.3] ]"
+        }
+      ]
+    },
+    {
+      "type": "steps",
+      "id": "steps",
+      "tab": "Steps",
+      "eyebrow": "Step by step",
+      "title": "How to *run it*",
+      "items": [
+        {
+          "title": "Open Claude",
+          "text": "claude.ai on a laptop works best."
+        },
+        {
+          "title": "Pick Fable",
+          "text": "Choose it in the model menu before you send."
+        },
+        {
+          "title": "Paste the prompt and send",
+          "text": "Claude writes the whole animation as one HTML file."
+        },
+        {
+          "title": "Download the file and open it",
+          "text": "Double-click it to open in Chrome, go full screen, then click or press space to play."
+        }
+      ]
+    },
+    {
+      "type": "fixes",
+      "id": "fixes",
+      "tab": "Make it yours",
+      "eyebrow": "After the first run",
+      "title": "Make it *yours*",
+      "tip": "Tap one to copy it, then paste it into the same Claude chat.",
+      "items": [
+        "Replace the words with my own: [your lines here]. Spread the timings evenly across each line.",
+        "Change the colours to [colour 1] and [colour 2], keep everything else the same.",
+        "Make it 20 seconds long: keep scenes 1, 5, 6 and 11 only.",
+        "Make the animation calmer: half the camera movement, no glitch bursts.",
+        "Make the type bigger and add more space between scenes."
+      ]
+    }
+  ]
+}

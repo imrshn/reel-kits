@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>One Claude prompt, full animation</title>
+<meta name="description" content="The exact Claude prompt behind the MOTION reel: one HTML file of kinetic type, neon effects and camera moves, no video tool needed.">
+<meta property="og:title" content="One Claude prompt, full animation">
+<meta property="og:description" content="The exact Claude prompt behind the MOTION reel: one HTML file of kinetic type, neon effects and camera moves, no video tool needed.">
+<meta property="og:image" content="https://imrshn.github.io/reel-kits/assets/og-default.png">
+<meta property="og:url" content="https://imrshn.github.io/reel-kits/motion/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#E6EFFF">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../assets/kit.css">
+</head>
+<body data-url="https://imrshn.github.io/reel-kits/motion/">
+<nav class="tabs" aria-label="Sections">
+  <a class="home" href="../" aria-label="All kits"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/></svg></a><a href="#prompt" class="on">The prompt</a><a href="#steps">Steps</a><a href="#fixes">Make it yours</a>
+</nav>
+<main class="wrap">
+<section id="top" class="sec hero">
+  <div><span class="label">Prompt pack · Comment <span class="kw">MOTION</span></span>
+  <h1>The <em>one prompt</em> that made the animation</h1></div>
+</section>
+<section id="prompt" class="sec" aria-labelledby="prompt-h"><div><span class="label">Copy and paste</span><h2 id="prompt-h">The <em>prompt</em></h2><p class="sub">Paste it into a new Claude chat with Fable selected. It&#x27;s long on purpose: every scene and timing is spelled out.</p></div>
+<article class="card">
+  <div class="ctop"><span class="chip">Prompt</span><button class="btn sm" type="button" data-copy-target="p1">Copy prompt</button></div>
+  <h3>Build the kinetic-type animation</h3><p>Gives you one HTML file. Open it in your browser and click to play.</p>
+<pre class="prompt" id="p1">Build me a kinetic-typography motion-graphics piece as ONE self-contained HTML file. No libraries, no images, no build step: just HTML, CSS and JavaScript in a single file that I open in a browser and play full screen. It must look like a premium, bright, futuristic launch piece, not a slideshow.
+
+## Look
+- Dark &quot;neon signal&quot; style: near-black background (#050508), electric blue (#2D6BFF) and hot magenta (#FF2D8A) as the only colours, white type. A faint blue grid that drifts, two slow neon rings, blue and magenta halos, drifting glowing dots, a slow light sweep, fine scanlines and film grain over everything.
+- Every big word gets a chromatic split: a blue copy and a magenta copy of each letter sit behind the white letter and fly apart on impact, then settle 3 px either side. Big words glow (blue or magenta text shadow).
+- Fonts from Google Fonts: Anybody (a variable font with a width axis from 50 to 150, so letters can really stretch, not just scale), JetBrains Mono for HUD readouts and code, Instrument Serif italic for the small connective words.
+- Chips are outlined neon pills; strike-throughs are magenta bars that slash in with a glow. Panels are dark glass with a blue border.
+- The ONE contrast moment is inverted: at &quot;That cut&quot; the frame snaps to white with black type, holds through &quot;All of it,&quot; then snaps back to black on &quot;code&quot;.
+- Hits: on every slam a 100 ms white flash over the frame, and a shock ring that expands and fades. A glitch burst (coloured scan bands jumping) on &quot;cut&quot; and on &quot;code&quot;.
+- Stage is 1920x1080 and scales to fit any window. Never slow: something moves every frame, the picture changes every 2 to 4 seconds, and the camera drifts, pushes in, whips sideways with motion blur and pulls back. A running timecode sits top left.
+
+## How it plays
+- A click or the space bar starts it (browsers block autoplay). URL `?auto=1` skips the gate. `?t=12` jumps to 12 seconds and holds that frame. Expose `window.__seek(seconds)` so a script can render frames deterministically.
+- At time 0 show a 100 ms white flash (a sync marker for editing), then the piece starts at PRE = 0.8 s.
+- If a file named `vo.mp3` sits next to the HTML, play it from PRE; otherwise play silently.
+- Use the Web Animations API with a single timeline so seeking is exact. GPU-friendly properties only (transform, opacity, clip-path), 60 fps on a laptop.
+
+## The words
+At the top of the file put an editable JS block: `LINES` (the spoken lines) and `WORDS` (each word with start and end seconds, measured from my voice recording). Every spoken word must appear on screen at its start time as big kinetic type. If someone edits the words and has no timings, spread the words evenly across each line&#x27;s duration. The words and timings are below.
+
+## Scenes (times are voice seconds; add PRE)
+1. 0.0 &quot;This whole animation is one Claude prompt.&quot; THIS WHOLE ANIMATION flies in word by word, each word widening from narrow to extended as it lands; CLAUDE and PROMPT slam in letter by letter with a vertical stretch, chromatic split and shock rings, then the letters of PROMPT settle at different widths.
+2. 2.25 &quot;No After Effects, no plugin, no video tool&quot; as three chips that pop in and get struck through in red as said; 4.88 &quot;and it wrote every frame as code&quot;: a wall of code scrolls behind EVERY FRAME, and &quot;code&quot; types itself in mono with a cursor.
+3. 7.31 &quot;I told Fable, Claude&#x27;s newest model, what I wanted:&quot; a holo chip FABLE and the line typed like a chat. Then each item appears as said: 10.06 KINETIC TYPE with letters that bend in a wave, 10.86 MORPHING SHAPES with a blob that keeps morphing, 11.76 3D DEPTH on a card that tilts in perspective, 12.74 &quot;a camera that never sits still&quot; while the whole stage orbits.
+4. 14.85 &quot;It handed back one file.&quot; A file card `animation.html` drops in with a bounce; ONE FILE.
+5. 16.71 &quot;The way the letters stretch&quot;: STRETCH starts at width 50 and squashed, then stretches to width 150 and beyond with its split copies flying wide. 18.49 &quot;That camera push&quot;: the camera pushes in hard on a magenta PUSH. 19.88 &quot;That cut&quot;: hard cut to a white frame with black CUT and a glitch burst.
+6. 20.99 &quot;All of it, code.&quot; Still on the white frame: black ALL OF IT, then on &quot;code&quot; snap back to black with a huge glowing mono &quot;code&quot; and a glitch burst.
+7. 22.87 &quot;So your workflow goes from layers, keyframes, graph editor, render&quot; as grey chips that stack and pile up, then collapse and fall at 27.42 &quot;to&quot;; &quot;describe, generate, open&quot; snap in big and bright with holo gradient, one per word.
+8. 29.84 &quot;And the part that got me?&quot; camera pulls back, big question mark. 31.75 &quot;It&#x27;s not a video file&quot; a .mp4 file icon struck out. 33.46 &quot;It&#x27;s live.&quot; LIVE with a pulsing green dot and rings.
+9. 34.73 &quot;Swap in your own words, and it plays again, with your text.&quot; A text field types YOUR WORDS HERE, then a small replay of scene 1 plays with that text.
+10. 38.26 &quot;Want yours? Open Claude, pick Fable, paste my prompt, and open the file it gives you.&quot; Four numbered step chips appear as said.
+11. 43.94 &quot;Comment MOTION and I&#x27;ll send you the exact prompt.&quot; A comment panel: a bubble types MOTION, send, then an auto-reply &quot;Sending you the prompt&quot;. Hold the end state with gentle motion until 50 s, then stop (no loop).
+
+## Words and timings (seconds)
+[ [&quot;This&quot;,0.0,0.26],[&quot;whole&quot;,0.27,0.52],[&quot;animation&quot;,0.53,0.98],[&quot;is&quot;,0.99,1.12],[&quot;one&quot;,1.13,1.36],[&quot;Claude&quot;,1.37,1.69],[&quot;prompt&quot;,1.7,2.24],[&quot;No&quot;,2.25,2.49],[&quot;After&quot;,2.5,2.75],[&quot;Effects&quot;,2.76,3.15],[&quot;no&quot;,3.16,3.38],[&quot;plugin&quot;,3.39,3.94],[&quot;no&quot;,3.95,4.15],[&quot;video&quot;,4.16,4.49],[&quot;tool&quot;,4.5,4.87],[&quot;and&quot;,4.88,5.2],[&quot;it&quot;,5.21,5.29],[&quot;wrote&quot;,5.3,5.57],[&quot;every&quot;,5.58,5.89],[&quot;frame&quot;,5.9,6.25],[&quot;as&quot;,6.26,6.48],[&quot;code&quot;,6.49,7.3],[&quot;I&quot;,7.31,7.46],[&quot;told&quot;,7.47,7.72],[&quot;Fable&quot;,7.73,8.12],[&quot;Claude&#x27;s&quot;,8.13,8.52],[&quot;newest&quot;,8.53,8.78],[&quot;model&quot;,8.79,9.11],[&quot;what&quot;,9.12,9.34],[&quot;I&quot;,9.35,9.4],[&quot;wanted&quot;,9.41,10.05],[&quot;kinetic&quot;,10.06,10.45],[&quot;type&quot;,10.46,10.85],[&quot;morphing&quot;,10.86,11.24],[&quot;shapes&quot;,11.25,11.75],[&quot;3D&quot;,11.76,12.21],[&quot;depth&quot;,12.22,12.73],[&quot;and&quot;,12.74,12.9],[&quot;a&quot;,12.91,12.95],[&quot;camera&quot;,12.96,13.34],[&quot;that&quot;,13.35,13.5],[&quot;never&quot;,13.51,13.83],[&quot;sits&quot;,13.84,14.13],[&quot;still&quot;,14.14,14.84],[&quot;It&quot;,14.85,14.98],[&quot;handed&quot;,14.99,15.33],[&quot;back&quot;,15.34,15.59],[&quot;one&quot;,15.6,15.97],[&quot;file&quot;,15.98,16.7],[&quot;The&quot;,16.71,16.79],[&quot;way&quot;,16.8,17.06],[&quot;the&quot;,17.07,17.15],[&quot;letters&quot;,17.16,17.54],[&quot;stretch&quot;,17.55,18.48],[&quot;That&quot;,18.49,18.74],[&quot;camera&quot;,18.75,19.16],[&quot;push&quot;,19.17,19.87],[&quot;That&quot;,19.88,20.21],[&quot;cut&quot;,20.22,20.98],[&quot;All&quot;,20.99,21.37],[&quot;of&quot;,21.38,21.49],[&quot;it&quot;,21.5,21.89],[&quot;code&quot;,21.9,22.86],[&quot;So&quot;,22.87,23.04],[&quot;your&quot;,23.05,23.26],[&quot;workflow&quot;,23.27,23.75],[&quot;goes&quot;,23.76,24.01],[&quot;from&quot;,24.02,24.15],[&quot;layers&quot;,24.16,24.74],[&quot;keyframes&quot;,24.75,25.62],[&quot;graph&quot;,25.63,25.97],[&quot;editor&quot;,25.98,26.59],[&quot;render&quot;,26.6,27.41],[&quot;to&quot;,27.42,27.58],[&quot;describe&quot;,27.59,28.47],[&quot;generate&quot;,28.48,29.36],[&quot;open&quot;,29.37,29.83],[&quot;And&quot;,29.84,30.39],[&quot;the&quot;,30.4,30.47],[&quot;part&quot;,30.48,30.73],[&quot;that&quot;,30.74,30.88],[&quot;got&quot;,30.89,31.12],[&quot;me&quot;,31.13,31.74],[&quot;It&#x27;s&quot;,31.75,31.95],[&quot;not&quot;,31.96,32.21],[&quot;a&quot;,32.22,32.26],[&quot;video&quot;,32.27,32.65],[&quot;file&quot;,32.66,33.45],[&quot;It&#x27;s&quot;,33.46,33.69],[&quot;live&quot;,33.7,34.72],[&quot;Swap&quot;,34.73,35.1],[&quot;in&quot;,35.11,35.2],[&quot;your&quot;,35.21,35.39],[&quot;own&quot;,35.4,35.54],[&quot;words&quot;,35.55,35.97],[&quot;and&quot;,35.98,36.13],[&quot;it&quot;,36.14,36.25],[&quot;plays&quot;,36.26,36.55],[&quot;again&quot;,36.56,37.08],[&quot;with&quot;,37.09,37.26],[&quot;your&quot;,37.27,37.45],[&quot;text&quot;,37.46,38.25],[&quot;Want&quot;,38.26,38.57],[&quot;yours&quot;,38.58,39.28],[&quot;Open&quot;,39.29,39.59],[&quot;Claude&quot;,39.6,40.17],[&quot;pick&quot;,40.18,40.42],[&quot;Fable&quot;,40.43,41.1],[&quot;paste&quot;,41.11,41.38],[&quot;my&quot;,41.39,41.56],[&quot;prompt&quot;,41.57,42.14],[&quot;and&quot;,42.15,42.35],[&quot;open&quot;,42.36,42.6],[&quot;the&quot;,42.61,42.68],[&quot;file&quot;,42.69,43.02],[&quot;it&quot;,43.03,43.1],[&quot;gives&quot;,43.11,43.36],[&quot;you&quot;,43.37,43.93],[&quot;Comment&quot;,43.94,44.49],[&quot;MOTION&quot;,44.5,45.09],[&quot;and&quot;,45.1,45.55],[&quot;I&#x27;ll&quot;,45.56,45.74],[&quot;send&quot;,45.75,46.0],[&quot;you&quot;,46.01,46.14],[&quot;the&quot;,46.15,46.3],[&quot;exact&quot;,46.31,46.77],[&quot;prompt&quot;,46.78,47.3] ]</pre>
+  <button class="more" type="button">Show full prompt</button>
+</article>
+</section>
+<section id="steps" class="sec" aria-labelledby="steps-h"><div><span class="label">Step by step</span><h2 id="steps-h">How to <em>run it</em></h2></div>
+<ol class="steps">
+<li><span class="n">1</span><div><b>Open Claude</b><span>claude.ai on a laptop works best.</span></div></li>
+<li><span class="n">2</span><div><b>Pick Fable</b><span>Choose it in the model menu before you send.</span></div></li>
+<li><span class="n">3</span><div><b>Paste the prompt and send</b><span>Claude writes the whole animation as one HTML file.</span></div></li>
+<li><span class="n">4</span><div><b>Download the file and open it</b><span>Double-click it to open in Chrome, go full screen, then click or press space to play.</span></div></li>
+</ol>
+</section>
+<section id="fixes" class="sec" aria-labelledby="fixes-h"><div><span class="label">After the first run</span><h2 id="fixes-h">Make it <em>yours</em></h2></div>
+<p class="tip">Tap one to copy it, then paste it into the same Claude chat.</p>
+<div class="fixes">
+<button class="fix" type="button" data-copy="Replace the words with my own: [your lines here]. Spread the timings evenly across each line.">Replace the words with my own: [your lines here]. Spread the timings evenly across each line.</button>
+<button class="fix" type="button" data-copy="Change the colours to [colour 1] and [colour 2], keep everything else the same.">Change the colours to [colour 1] and [colour 2], keep everything else the same.</button>
+<button class="fix" type="button" data-copy="Make it 20 seconds long: keep scenes 1, 5, 6 and 11 only.">Make it 20 seconds long: keep scenes 1, 5, 6 and 11 only.</button>
+<button class="fix" type="button" data-copy="Make the animation calmer: half the camera movement, no glitch bursts.">Make the animation calmer: half the camera movement, no glitch bursts.</button>
+<button class="fix" type="button" data-copy="Make the type bigger and add more space between scenes.">Make the type bigger and add more space between scenes.</button>
+</div></section>
+<footer>
+  <span>Found this useful? Send it to a friend who'd use it.</span>
+  <span><a href="../">More free kits</a></span>
+  <span class="ver">Prompt v1.0 · Nov 2026</span>
+</footer>
+</main>
+<div class="dock"><div class="in"><button class="btn" type="button" data-copy="Build the kinetic-type animation
+Build me a kinetic-typography motion-graphics piece as ONE self-contained HTML file. No libraries, no images, no build step: just HTML, CSS and JavaScript in a single file that I open in a browser and play full screen. It must look like a premium, bright, futuristic launch piece, not a slideshow.
+
+## Look
+- Dark &quot;neon signal&quot; style: near-black background (#050508), electric blue (#2D6BFF) and hot magenta (#FF2D8A) as the only colours, white type. A faint blue grid that drifts, two slow neon rings, blue and magenta halos, drifting glowing dots, a slow light sweep, fine scanlines and film grain over everything.
+- Every big word gets a chromatic split: a blue copy and a magenta copy of each letter sit behind the white letter and fly apart on impact, then settle 3 px either side. Big words glow (blue or magenta text shadow).
+- Fonts from Google Fonts: Anybody (a variable font with a width axis from 50 to 150, so letters can really stretch, not just scale), JetBrains Mono for HUD readouts and code, Instrument Serif italic for the small connective words.
+- Chips are outlined neon pills; strike-throughs are magenta bars that slash in with a glow. Panels are dark glass with a blue border.
+- The ONE contrast moment is inverted: at &quot;That cut&quot; the frame snaps to white with black type, holds through &quot;All of it,&quot; then snaps back to black on &quot;code&quot;.
+- Hits: on every slam a 100 ms white flash over the frame, and a shock ring that expands and fades. A glitch burst (coloured scan bands jumping) on &quot;cut&quot; and on &quot;code&quot;.
+- Stage is 1920x1080 and scales to fit any window. Never slow: something moves every frame, the picture changes every 2 to 4 seconds, and the camera drifts, pushes in, whips sideways with motion blur and pulls back. A running timecode sits top left.
+
+## How it plays
+- A click or the space bar starts it (browsers block autoplay). URL `?auto=1` skips the gate. `?t=12` jumps to 12 seconds and holds that frame. Expose `window.__seek(seconds)` so a script can render frames deterministically.
+- At time 0 show a 100 ms white flash (a sync marker for editing), then the piece starts at PRE = 0.8 s.
+- If a file named `vo.mp3` sits next to the HTML, play it from PRE; otherwise play silently.
+- Use the Web Animations API with a single timeline so seeking is exact. GPU-friendly properties only (transform, opacity, clip-path), 60 fps on a laptop.
+
+## The words
+At the top of the file put an editable JS block: `LINES` (the spoken lines) and `WORDS` (each word with start and end seconds, measured from my voice recording). Every spoken word must appear on screen at its start time as big kinetic type. If someone edits the words and has no timings, spread the words evenly across each line&#x27;s duration. The words and timings are below.
+
+## Scenes (times are voice seconds; add PRE)
+1. 0.0 &quot;This whole animation is one Claude prompt.&quot; THIS WHOLE ANIMATION flies in word by word, each word widening from narrow to extended as it lands; CLAUDE and PROMPT slam in letter by letter with a vertical stretch, chromatic split and shock rings, then the letters of PROMPT settle at different widths.
+2. 2.25 &quot;No After Effects, no plugin, no video tool&quot; as three chips that pop in and get struck through in red as said; 4.88 &quot;and it wrote every frame as code&quot;: a wall of code scrolls behind EVERY FRAME, and &quot;code&quot; types itself in mono with a cursor.
+3. 7.31 &quot;I told Fable, Claude&#x27;s newest model, what I wanted:&quot; a holo chip FABLE and the line typed like a chat. Then each item appears as said: 10.06 KINETIC TYPE with letters that bend in a wave, 10.86 MORPHING SHAPES with a blob that keeps morphing, 11.76 3D DEPTH on a card that tilts in perspective, 12.74 &quot;a camera that never sits still&quot; while the whole stage orbits.
+4. 14.85 &quot;It handed back one file.&quot; A file card `animation.html` drops in with a bounce; ONE FILE.
+5. 16.71 &quot;The way the letters stretch&quot;: STRETCH starts at width 50 and squashed, then stretches to width 150 and beyond with its split copies flying wide. 18.49 &quot;That camera push&quot;: the camera pushes in hard on a magenta PUSH. 19.88 &quot;That cut&quot;: hard cut to a white frame with black CUT and a glitch burst.
+6. 20.99 &quot;All of it, code.&quot; Still on the white frame: black ALL OF IT, then on &quot;code&quot; snap back to black with a huge glowing mono &quot;code&quot; and a glitch burst.
+7. 22.87 &quot;So your workflow goes from layers, keyframes, graph editor, render&quot; as grey chips that stack and pile up, then collapse and fall at 27.42 &quot;to&quot;; &quot;describe, generate, open&quot; snap in big and bright with holo gradient, one per word.
+8. 29.84 &quot;And the part that got me?&quot; camera pulls back, big question mark. 31.75 &quot;It&#x27;s not a video file&quot; a .mp4 file icon struck out. 33.46 &quot;It&#x27;s live.&quot; LIVE with a pulsing green dot and rings.
+9. 34.73 &quot;Swap in your own words, and it plays again, with your text.&quot; A text field types YOUR WORDS HERE, then a small replay of scene 1 plays with that text.
+10. 38.26 &quot;Want yours? Open Claude, pick Fable, paste my prompt, and open the file it gives you.&quot; Four numbered step chips appear as said.
+11. 43.94 &quot;Comment MOTION and I&#x27;ll send you the exact prompt.&quot; A comment panel: a bubble types MOTION, send, then an auto-reply &quot;Sending you the prompt&quot;. Hold the end state with gentle motion until 50 s, then stop (no loop).
+
+## Words and timings (seconds)
+[ [&quot;This&quot;,0.0,0.26],[&quot;whole&quot;,0.27,0.52],[&quot;animation&quot;,0.53,0.98],[&quot;is&quot;,0.99,1.12],[&quot;one&quot;,1.13,1.36],[&quot;Claude&quot;,1.37,1.69],[&quot;prompt&quot;,1.7,2.24],[&quot;No&quot;,2.25,2.49],[&quot;After&quot;,2.5,2.75],[&quot;Effects&quot;,2.76,3.15],[&quot;no&quot;,3.16,3.38],[&quot;plugin&quot;,3.39,3.94],[&quot;no&quot;,3.95,4.15],[&quot;video&quot;,4.16,4.49],[&quot;tool&quot;,4.5,4.87],[&quot;and&quot;,4.88,5.2],[&quot;it&quot;,5.21,5.29],[&quot;wrote&quot;,5.3,5.57],[&quot;every&quot;,5.58,5.89],[&quot;frame&quot;,5.9,6.25],[&quot;as&quot;,6.26,6.48],[&quot;code&quot;,6.49,7.3],[&quot;I&quot;,7.31,7.46],[&quot;told&quot;,7.47,7.72],[&quot;Fable&quot;,7.73,8.12],[&quot;Claude&#x27;s&quot;,8.13,8.52],[&quot;newest&quot;,8.53,8.78],[&quot;model&quot;,8.79,9.11],[&quot;what&quot;,9.12,9.34],[&quot;I&quot;,9.35,9.4],[&quot;wanted&quot;,9.41,10.05],[&quot;kinetic&quot;,10.06,10.45],[&quot;type&quot;,10.46,10.85],[&quot;morphing&quot;,10.86,11.24],[&quot;shapes&quot;,11.25,11.75],[&quot;3D&quot;,11.76,12.21],[&quot;depth&quot;,12.22,12.73],[&quot;and&quot;,12.74,12.9],[&quot;a&quot;,12.91,12.95],[&quot;camera&quot;,12.96,13.34],[&quot;that&quot;,13.35,13.5],[&quot;never&quot;,13.51,13.83],[&quot;sits&quot;,13.84,14.13],[&quot;still&quot;,14.14,14.84],[&quot;It&quot;,14.85,14.98],[&quot;handed&quot;,14.99,15.33],[&quot;back&quot;,15.34,15.59],[&quot;one&quot;,15.6,15.97],[&quot;file&quot;,15.98,16.7],[&quot;The&quot;,16.71,16.79],[&quot;way&quot;,16.8,17.06],[&quot;the&quot;,17.07,17.15],[&quot;letters&quot;,17.16,17.54],[&quot;stretch&quot;,17.55,18.48],[&quot;That&quot;,18.49,18.74],[&quot;camera&quot;,18.75,19.16],[&quot;push&quot;,19.17,19.87],[&quot;That&quot;,19.88,20.21],[&quot;cut&quot;,20.22,20.98],[&quot;All&quot;,20.99,21.37],[&quot;of&quot;,21.38,21.49],[&quot;it&quot;,21.5,21.89],[&quot;code&quot;,21.9,22.86],[&quot;So&quot;,22.87,23.04],[&quot;your&quot;,23.05,23.26],[&quot;workflow&quot;,23.27,23.75],[&quot;goes&quot;,23.76,24.01],[&quot;from&quot;,24.02,24.15],[&quot;layers&quot;,24.16,24.74],[&quot;keyframes&quot;,24.75,25.62],[&quot;graph&quot;,25.63,25.97],[&quot;editor&quot;,25.98,26.59],[&quot;render&quot;,26.6,27.41],[&quot;to&quot;,27.42,27.58],[&quot;describe&quot;,27.59,28.47],[&quot;generate&quot;,28.48,29.36],[&quot;open&quot;,29.37,29.83],[&quot;And&quot;,29.84,30.39],[&quot;the&quot;,30.4,30.47],[&quot;part&quot;,30.48,30.73],[&quot;that&quot;,30.74,30.88],[&quot;got&quot;,30.89,31.12],[&quot;me&quot;,31.13,31.74],[&quot;It&#x27;s&quot;,31.75,31.95],[&quot;not&quot;,31.96,32.21],[&quot;a&quot;,32.22,32.26],[&quot;video&quot;,32.27,32.65],[&quot;file&quot;,32.66,33.45],[&quot;It&#x27;s&quot;,33.46,33.69],[&quot;live&quot;,33.7,34.72],[&quot;Swap&quot;,34.73,35.1],[&quot;in&quot;,35.11,35.2],[&quot;your&quot;,35.21,35.39],[&quot;own&quot;,35.4,35.54],[&quot;words&quot;,35.55,35.97],[&quot;and&quot;,35.98,36.13],[&quot;it&quot;,36.14,36.25],[&quot;plays&quot;,36.26,36.55],[&quot;again&quot;,36.56,37.08],[&quot;with&quot;,37.09,37.26],[&quot;your&quot;,37.27,37.45],[&quot;text&quot;,37.46,38.25],[&quot;Want&quot;,38.26,38.57],[&quot;yours&quot;,38.58,39.28],[&quot;Open&quot;,39.29,39.59],[&quot;Claude&quot;,39.6,40.17],[&quot;pick&quot;,40.18,40.42],[&quot;Fable&quot;,40.43,41.1],[&quot;paste&quot;,41.11,41.38],[&quot;my&quot;,41.39,41.56],[&quot;prompt&quot;,41.57,42.14],[&quot;and&quot;,42.15,42.35],[&quot;open&quot;,42.36,42.6],[&quot;the&quot;,42.61,42.68],[&quot;file&quot;,42.69,43.02],[&quot;it&quot;,43.03,43.1],[&quot;gives&quot;,43.11,43.36],[&quot;you&quot;,43.37,43.93],[&quot;Comment&quot;,43.94,44.49],[&quot;MOTION&quot;,44.5,45.09],[&quot;and&quot;,45.1,45.55],[&quot;I&#x27;ll&quot;,45.56,45.74],[&quot;send&quot;,45.75,46.0],[&quot;you&quot;,46.01,46.14],[&quot;the&quot;,46.15,46.3],[&quot;exact&quot;,46.31,46.77],[&quot;prompt&quot;,46.78,47.3] ]"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"/></svg>Copy the prompt</button><button class="btn light" type="button" data-share="One Claude prompt, full animation"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3m0 0L7 8m5-5 5 5"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg>Share</button></div></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="../assets/kit.js"></script>
+</body>
+</html>
