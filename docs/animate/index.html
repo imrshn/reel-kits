@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AI Reel Maker Kit</title>
+<meta name="description" content="One line in, a finished animated reel out: script, voiceover, motion graphics, word-timed captions and a self-check of every frame.">
+<meta property="og:title" content="AI Reel Maker Kit">
+<meta property="og:description" content="One line in, a finished animated reel out: script, voiceover, motion graphics, word-timed captions and a self-check of every frame.">
+<meta property="og:image" content="https://imrshn.github.io/reel-kits/assets/og-animate.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="AI Reel Maker Kit">
+<meta property="og:url" content="https://imrshn.github.io/reel-kits/animate/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#E6EFFF">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../assets/kit.css">
+</head>
+<body data-url="https://imrshn.github.io/reel-kits/animate/">
+<nav class="tabs" aria-label="Sections">
+  <a class="home" href="../" aria-label="All kits"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/></svg></a><a href="#steps" class="on">Steps</a><a href="#prompts">Prompts</a><a href="#fixes">Fix lines</a><a href="#about">About</a>
+</nav>
+<main class="wrap">
+<section id="top" class="sec hero">
+  <div><span class="label">Starter kit · Comment <span class="kw">ANIMATE</span></span>
+  <h1>Make <em>animated reels</em> with Claude Code</h1></div>
+</section>
+<section id="steps" class="sec" aria-labelledby="steps-h"><div><span class="label">From the reel</span><h2 id="steps-h">The <em>workflow</em></h2></div>
+<ol class="steps">
+<li><span class="n">1</span><div><b>Get the Claude desktop app</b><span>Skip the browser. Download it from claude.ai/download and sign in. Claude Code needs a paid plan (Pro or higher).</span></div></li>
+<li><span class="n">2</span><div><b>Download the kit and unzip it</b><span>You get a folder called AI Video Editor. Put it on your Desktop. Your skill files and every finished reel live here.</span></div></li>
+<li><span class="n">3</span><div><b>Start a Claude Code chat on that folder</b><span>Code tab → new session → choose Local → select the AI Video Editor folder.</span></div></li>
+<li><span class="n">4</span><div><b>Type <code class="in">check my setup</code></b><span>Claude installs what&#x27;s missing inside the folder (no password) and tests itself on a sample reel. Click Allow when it asks. About 10 minutes the first time.</span></div></li>
+<li><span class="n">5</span><div><b>Type what the reel is about, in one line</b><span>For example: <code class="in">make a reel about why airplane food tastes so bland</code>. It writes the script, records the voiceover, animates every scene, times the captions and checks its own frames.</span></div></li>
+<li><span class="n">6</span><div><b>Tell it what to change</b><span>Like you would a video editor. Every change saves a new version. See the fix lines.</span></div></li>
+</ol>
+</section>
+<section id="prompts" class="sec" aria-labelledby="prompts-h"><div><span class="label">Copy and paste</span><h2 id="prompts-h">The <em>prompts</em></h2><p class="sub">Type these in the Claude Code chat inside the AI Video Editor folder.</p></div>
+<article class="card">
+  <div class="ctop"><span class="chip">01 · Setup</span><button class="btn sm" type="button" data-copy-target="p1">Copy prompt</button></div>
+  <h3>Check my setup</h3>
+<pre class="prompt short" id="p1">Check my setup. Install anything that&#x27;s missing inside this folder, then test it by rendering the sample reel. Tell me in plain words when it&#x27;s ready.</pre>
+  
+</article>
+<article class="card">
+  <div class="ctop"><span class="chip">02 · Make</span><button class="btn sm" type="button" data-copy-target="p2">Copy prompt</button></div>
+  <h3>Make a reel from one line</h3>
+<pre class="prompt short" id="p2">Make a reel about <span class="fill">[your topic in one line]</span>. About <span class="fill">[30]</span> seconds. End with: <span class="fill">[Follow for more / Comment KEYWORD and I&#x27;ll send you ...]</span></pre>
+  
+</article>
+<article class="card">
+  <div class="ctop"><span class="chip">03 · Own voice</span><button class="btn sm" type="button" data-copy-target="p3">Copy prompt</button></div>
+  <h3>Use your own voice (optional)</h3>
+<pre class="prompt short" id="p3">Use my recording for the voice: <span class="fill">[drag your audio file here]</span>. Match the script to what I said, then re-time the captions and render again.</pre>
+  
+</article>
+</section>
+<section id="fixes" class="sec" aria-labelledby="fixes-h"><div><span class="label">After the first render</span><h2 id="fixes-h">Fix <em>lines</em></h2></div>
+<p class="tip">Every change saves a new version (v2, v3...), so you never lose one.</p>
+<div class="fixes">
+<button class="fix" type="button" data-copy="Make the hook punchier.">Make the hook punchier.</button>
+<button class="fix" type="button" data-copy="Speak a bit faster.">Speak a bit faster.</button>
+<button class="fix" type="button" data-copy="Use a female voice.">Use a female voice.</button>
+<button class="fix" type="button" data-copy="The third scene feels empty, show the numbers.">The third scene feels empty, show the numbers.</button>
+<button class="fix" type="button" data-copy="Make the captions bigger.">Make the captions bigger.</button>
+<button class="fix" type="button" data-copy="Add a comment keyword at the end: GUIDE.">Add a comment keyword at the end: GUIDE.</button>
+<button class="fix" type="button" data-copy="This didn&#x27;t work, fix it.">This didn&#x27;t work, fix it.</button>
+<button class="fix" type="button" data-copy="Save this as my style.">Save this as my style.</button>
+</div></section>
+<section id="about" class="sec" aria-labelledby="about-h"><div><span class="label">About the kit</span><h2 id="about-h">What it <em>does</em></h2></div>
+<div class="does"><div><b>Writes the script</b><span>Hook first, facts checked</span></div><div><b>Records the voice</b><span>Free voice on your computer, or your own</span></div><div><b>Animates every scene</b><span>10 motion-graphic scene types</span></div><div><b>Word-timed captions</b><span>Synced to the voice</span></div><div><b>Checks its own frames</b><span>Before you see it</span></div><div><b>Ready to post</b><span>1080x1920 MP4, sound effects, Instagram loudness</span></div></div>
+<ul class="needs"><li>Needs a Mac or Windows computer and the Claude desktop app (claude.ai/download)</li><li>Needs a paid Claude plan (Pro or higher) for Claude Code</li><li>Downloads about 400 MB the first time. Everything installs inside the folder. Delete the folder and it&#x27;s gone.</li><li>Optional: your own Fish Audio or ElevenLabs voice (your API key) or a recording of your own voice</li></ul>
+</section>
+<footer>
+  <span>Found this useful? Send it to a friend who'd use it.</span>
+  <span><a href="../">More free kits</a> · <a href="https://github.com/imrshn/reel-kits/tree/main/kits/animate">Files on GitHub</a></span>
+  <span class="ver">Kit v1.0 · Nov 2026</span>
+</footer>
+</main>
+<div class="dock"><div class="in"><a class="btn" href="https://github.com/imrshn/reel-kits/releases/download/animate/animate-kit.zip"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11m0 0-5-5m5 5 5-5M5 20h14"/></svg>Download full kit</a><button class="btn light" type="button" data-share="AI Reel Maker"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3m0 0L7 8m5-5 5 5"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg>Share</button></div></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="../assets/kit.js"></script>
+</body>
+</html>

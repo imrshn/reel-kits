@@ -1,0 +1,10 @@
+.venv/
+models/*
+!models/README.md
+.env
+exports/*
+!exports/.gitkeep
+reels/*/.work/
+reels/*/check/
+__pycache__/
+.DS_Store
