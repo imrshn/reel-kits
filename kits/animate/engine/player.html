@@ -1,0 +1,57 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<!-- The reel player. tools/render.py opens this page with ?reel=<folder of a reel>
+     and calls window.seek(t) once per frame. Open it in a browser to preview:
+     player.html?reel=../reels/my-reel&play=1 -->
+<link rel="stylesheet" href="fonts/local.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="stage">
+ <div id="cam">
+  <div id="bg">
+   <div id="sky"></div>
+   <div id="sun" class="abs"></div>
+   <div id="blobA" class="abs"></div>
+   <div id="blobB" class="abs"></div>
+   <div id="dots" class="abs"></div>
+   <svg id="horizon" class="abs" width="1080" height="760" viewBox="0 0 1080 760"></svg>
+   <svg id="orbit" class="abs" width="1700" height="1700" viewBox="0 0 1700 1700">
+    <circle cx="850" cy="850" r="760" fill="none" stroke="#2563EB" stroke-opacity=".16" stroke-width="2"/>
+    <circle cx="850" cy="850" r="610" fill="none" stroke="#2563EB" stroke-opacity=".12" stroke-width="2" stroke-dasharray="6 14"/>
+    <circle cx="850" cy="90" r="9" fill="#FFB547"/><circle cx="1460" cy="850" r="6" fill="#2563EB"/><circle cx="240" cy="850" r="5" fill="#0FA898"/>
+   </svg>
+   <div id="parts" class="abs"></div>
+   <div id="night" class="abs"><div class="ndots abs"></div></div>
+  </div>
+  <div id="scenes" class="abs"></div>
+ </div>
+ <div id="hud" class="abs">
+  <div class="br tl"></div><div class="br tr"></div><div class="br bl"></div><div class="br bbr"></div>
+  <div id="hudL" class="mono"></div>
+  <div id="hudR" class="mono"></div>
+ </div>
+ <div id="cap"></div>
+ <div id="flash" class="abs"></div>
+</div>
+<script src="engine.js"></script>
+<script>
+// Load the reel's files. Script tags (not fetch) so it also works from file://
+(function(){
+  const q = new URLSearchParams(location.search);
+  let dir = q.get('reel') || '../reels/airplane-food';
+  if (!dir.endsWith('/')) dir += '/';
+  window.REEL_DIR = dir;
+  const load = (src) => new Promise((ok, bad) => {
+    const s = document.createElement('script');
+    s.src = src + '?v=' + Date.now();
+    s.onload = ok; s.onerror = () => bad(new Error('Could not load ' + src));
+    document.body.appendChild(s);
+  });
+  load(dir + 'words.js')
+    .then(() => load(dir + 'scenes.js'))
+    .then(() => ENGINE.start(q))
+    .catch(e => ENGINE.fail(e));
+})();
+</script>
+</body></html>
