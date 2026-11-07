@@ -73,6 +73,7 @@ A real screenshot or picture in a browser card, with camera moves and marker hig
 ### steps
 A checklist of steps; earlier ones are ticked, the `active` one is highlighted (0 = first).
 `{ type: "steps", title: "The workflow", steps: ["Desktop app", "A folder", "Local chat", "Setup", "One line"], active: 2 }`
+Add `flow: 0.6` to light the steps up one by one (seconds per step, a tick on each); `flowAt: "words"` starts it on a phrase. Use `active: -1` with flow.
 
 ### cta
 Comment panel with the keyword typing in and a DM chip.
@@ -92,6 +93,7 @@ Anything else. `html` is placed in the scene; `update(root, lt, H, T)` runs ever
 |---|---|---|
 | `hud` | none | Top-left label |
 | `counter` | on | `false` hides the "03 / 10" scene counter |
+| `theme` | Sky Hologram | `"story"` = calm cinematic look (dusk sky, film vignette, serif titles, subtitle captions, no HUD). The airplane-food example uses it. |
 | `colors` | Sky Hologram | e.g. `{ acc: "#E4572E", sun: "#FFB547" }` (CSS variables in engine/style.css) |
 | `captionWords` | 3 | Max words on screen at once |
 | `captionChars` | 18 | Max characters per caption group |

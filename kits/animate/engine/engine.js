@@ -403,12 +403,38 @@ TYPES.steps = (S, root, T) => {
     const n = el('div', 'center mono', `width:${th * .56}px;height:${th * .56}px;border-radius:50%;flex:none;font-weight:600;font-size:${th * .22}px;${done ? 'background:var(--ok);color:#fff' : on ? 'background:var(--acc);color:#fff' : 'background:#E8EEF8;color:var(--muted)'}`, done ? '✓' : String(i + 1));
     const lab = el('div', '', `font-weight:800;flex:1;color:${on || done ? 'var(--ink)' : 'var(--muted)'}`, rich(s));
     r.append(n, lab); root.append(r); fit(lab, (on ? 1000 : 900) - 68 - th * .56 - 26, th - 16, on ? 50 : 42, 22);
+    r._n = n; r._lab = lab;
     return r;
   });
+  // flow: light the steps up one by one (seconds per step); flowStart = when the first one lights
+  const paint = (r, i, k) => {
+    const on = i === k, done = i < k;
+    r.style.left = (on ? 40 : 90) + 'px'; r.style.width = (on ? 1000 : 900) + 'px';
+    r.style.border = on ? '3px solid var(--acc)' : '2px solid #fff';
+    r.style.boxShadow = on ? '0 20px 60px rgba(37,99,235,.3)' : '';
+    r._n.style.background = done ? 'var(--ok)' : on ? 'var(--acc)' : '#E8EEF8';
+    r._n.style.color = done || on ? '#fff' : 'var(--muted)';
+    r._n.textContent = done ? '✓' : String(i + 1);
+    r._lab.style.color = on || done ? 'var(--ink)' : 'var(--muted)';
+  };
+  const flowStart = T(S.flowAt, S.flowStart != null ? S.flowStart : .05 + steps.length * .08 + .25);
   return lt => {
     if (title) popWords(title, lt, 0, .06);
     rows.forEach((r, i) => pop(r, lt, .05 + i * .08, { dy: 30 }));
+    if (S.flow) {
+      const k = lt < flowStart ? -1 : Math.floor((lt - flowStart) / S.flow);
+      rows.forEach((r, i) => {
+        paint(r, i, k);
+        if (i === k) { const q = P(lt, flowStart + k * S.flow, .25); r.style.transform += ` scale(${1 + .04 * Math.sin(q * Math.PI)})`; }
+      });
+    }
   };
+};
+
+TYPES.steps.events = (S, T) => {
+  if (!S.flow) return [];
+  const n = (S.steps || []).length, st = T(S.flowAt, S.flowStart != null ? S.flowStart : .05 + n * .08 + .25);
+  return (S.steps || []).map((_, i) => ({ t: st + i * S.flow, kind: 'tick' }));
 };
 
 TYPES.cta = (S, root, T) => {
@@ -499,6 +525,7 @@ function build() {
   NW = WORDS.map(w => norm(w.w).replace(/\s+/g, ''));
   if (!CFG) throw new Error('scenes.js did not call REEL({...}).');
   const cfg = CFG;
+  if (cfg.theme) document.body.classList.add('theme-' + cfg.theme);
   if (cfg.colors) Object.entries(cfg.colors).forEach(([k, v]) => document.documentElement.style.setProperty('--' + k, v));
   const lastWord = WORDS.length ? WORDS[WORDS.length - 1].e : 5;
   DUR = cfg.duration || (lastWord + (cfg.tail == null ? 1.2 : cfg.tail));
