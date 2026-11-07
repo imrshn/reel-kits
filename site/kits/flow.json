@@ -1,0 +1,105 @@
+{
+  "slug": "flow",
+  "keyword": "FLOW",
+  "type": "Tool guide",
+  "date": "2026-11-07",
+  "draft": false,
+  "name": "Ruflo: an AI agent team for Claude Code",
+  "og_image": "assets/og-flow.png",
+  "version_label": "Guide v1.0 · Nov 2026",
+  "headline": "Give Claude Code a *team of 100+ agents*",
+  "summary": "Ruflo, formerly Claude Flow: the free, open-source tool that adds planning, coding, testing and security agents to Claude Code. Link, one-line install and a first prompt.",
+  "sections": [
+    {
+      "type": "tools",
+      "id": "link",
+      "tab": "The link",
+      "eyebrow": "From the reel",
+      "title": "Meet *Ruflo*",
+      "intro": "Free and open source (MIT). Tap Open to see it on GitHub.",
+      "items": [
+        {
+          "name": "Ruflo",
+          "icon": "🌊",
+          "price": "Formerly Claude Flow · 81K ★",
+          "what": "Adds 100+ specialised agents to Claude Code. They plan, write code, run tests and check security together, share memory and learn from each task.",
+          "url": "https://github.com/ruvnet/ruflo"
+        }
+      ]
+    },
+    {
+      "type": "steps",
+      "id": "setup",
+      "tab": "Set it up",
+      "eyebrow": "About 2 minutes",
+      "title": "The *setup*",
+      "items": [
+        {
+          "title": "Install Node.js 20 or newer",
+          "text": "Get it from nodejs.org if you don't have it. Check with `node -v` in a terminal."
+        },
+        {
+          "title": "Open your project folder in a terminal",
+          "text": "Use the folder you want the agents to work on."
+        },
+        {
+          "title": "Run `npx ruflo@latest init`",
+          "text": "It adds Ruflo's agents, memory and tools to that folder."
+        },
+        {
+          "title": "Restart Claude Code in that folder",
+          "text": "Claude Code picks Ruflo up when it starts. Then give it a real task, like the prompt in the next tab."
+        }
+      ],
+      "extra": {
+        "summary": "Only want the Claude Code plugin? Run these inside Claude Code",
+        "code": "/plugin marketplace add ruvnet/ruflo\n/plugin install ruflo-core@ruflo\n/plugin install ruflo-swarm@ruflo"
+      }
+    },
+    {
+      "type": "prompts",
+      "id": "prompt",
+      "tab": "First prompt",
+      "eyebrow": "Try it first",
+      "title": "Your first *task*",
+      "intro": "Paste this into Claude Code inside your project after the setup. It comes from Ruflo's own README.",
+      "items": [
+        {
+          "tag": "01 · First run",
+          "title": "Review a project with an agent team",
+          "text": "Use a ruflo swarm to review this repo: find the riskiest module, write tests for it, and summarise what you changed."
+        }
+      ]
+    },
+    {
+      "type": "about",
+      "id": "fine-print",
+      "tab": "Good to know",
+      "eyebrow": "Before you start",
+      "title": "The *fine print*",
+      "features": [
+        {
+          "title": "The savings numbers are Ruflo's own",
+          "text": "Its user guide says smart routing can cut API costs by up to 75% and stretch your Claude Code plan up to 2.5 times. Simple edits skip the AI entirely. Your results depend on the task."
+        },
+        {
+          "title": "Start small",
+          "text": "Run it on a copy of a project or a fresh folder first, and read what it changed before you keep it."
+        },
+        {
+          "title": "Plugins run with your permissions",
+          "text": "Ruflo's mods aren't sandboxed, so its README asks you to read their code before installing."
+        },
+        {
+          "title": "Star counts change",
+          "text": "Stars were counted on 7 Nov 2026."
+        }
+      ],
+      "needs": [
+        "Claude Code (a paid Claude plan)",
+        "Node.js 20 or newer",
+        "Mac, Windows or Linux"
+      ]
+    }
+  ]
+}
