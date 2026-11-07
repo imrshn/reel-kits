@@ -12,9 +12,31 @@
   "summary": "The Higgsfield Katana preset and the prompt behind the \"Claude killed it\" reel, with the setup steps and quick tweaks.",
   "sections": [
     {
+      "type": "prompts",
+      "id": "prompts",
+      "tab": "Prompts",
+      "eyebrow": "Copy and paste",
+      "title": "The *2 prompts*",
+      "intro": "Send them in order, in the same chat. First time? Do the setup below first.",
+      "items": [
+        {
+          "tag": "01",
+          "title": "Run the preset",
+          "note": "Starts the Katana kinetic typography preset",
+          "text": "/katana/higgsfield-katana-kinetic-typography-edit\n\nAsk me to upload what I want in this video first: my characters, products, clothes, props or anything else. Then create the preset video with them."
+        },
+        {
+          "tag": "02",
+          "title": "The style brief",
+          "note": "Change any part of it: the colours, the words, the ending",
+          "text": "Create a kinetic typography promo using the supplied reference images and brand information. Follow the reference's rapid sequence of oversized condensed headlines, stacked words, isolated punctuation, and small supporting text. Alternate near-black backgrounds with warm off-white and ==vivid red== panels. Animate lettering through punchy scale changes, lateral sweeps, stretching, rotation, and motion blur. Interleave framed interface or reference-image inserts, simple red geometric forms, thin glowing lines, and subtle particles. Keep the composition bold and tightly timed, then resolve into a clean centered brand end card.\n\nBrand: [[your brand name, tagline and colours]]"
+        }
+      ]
+    },
+    {
       "type": "steps",
       "id": "steps",
-      "tab": "Steps",
+      "tab": "Setup",
       "eyebrow": "Step by step",
       "title": "The *setup*",
       "items": [
@@ -47,28 +69,6 @@
         "summary": "The connector address, to copy",
         "code": "https://mcp.higgsfield.ai/mcp"
       }
-    },
-    {
-      "type": "prompts",
-      "id": "prompts",
-      "tab": "Prompts",
-      "eyebrow": "Copy and paste",
-      "title": "The *2 prompts*",
-      "intro": "Send them in order, in the same chat.",
-      "items": [
-        {
-          "tag": "01",
-          "title": "Run the preset",
-          "note": "Starts the Katana kinetic typography preset",
-          "text": "/katana/higgsfield-katana-kinetic-typography-edit\n\nAsk me to upload what I want in this video first: my characters, products, clothes, props or anything else. Then create the preset video with them."
-        },
-        {
-          "tag": "02",
-          "title": "The style brief",
-          "note": "Change any part of it: the colours, the words, the ending",
-          "text": "Create a kinetic typography promo using the supplied reference images and brand information. Follow the reference's rapid sequence of oversized condensed headlines, stacked words, isolated punctuation, and small supporting text. Alternate near-black backgrounds with warm off-white and ==vivid red== panels. Animate lettering through punchy scale changes, lateral sweeps, stretching, rotation, and motion blur. Interleave framed interface or reference-image inserts, simple red geometric forms, thin glowing lines, and subtle particles. Keep the composition bold and tightly timed, then resolve into a clean centered brand end card.\n\nBrand: [[your brand name, tagline and colours]]"
-        }
-      ]
     },
     {
       "type": "fixes",
