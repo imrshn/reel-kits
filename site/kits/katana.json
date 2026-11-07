@@ -1,0 +1,120 @@
+{
+  "slug": "katana",
+  "keyword": "KATANA",
+  "type": "Prompt pack",
+  "date": "2026-11-07",
+  "draft": false,
+  "name": "Claude × Higgsfield Katana: kinetic type promo",
+  "og_image": "assets/og-katana.png",
+  "version_label": "Kit v1.0 · Nov 2026",
+  "headline": "Make this *kinetic type promo* with Claude",
+  "lede": "The preset and the exact prompt behind the reel. Swap in your own brand, product or words.",
+  "summary": "The Higgsfield Katana preset and the prompt behind the \"Claude killed it\" reel, with the setup steps and quick tweaks.",
+  "sections": [
+    {
+      "type": "steps",
+      "id": "steps",
+      "tab": "Steps",
+      "eyebrow": "Step by step",
+      "title": "The *setup*",
+      "items": [
+        {
+          "title": "Get a paid Higgsfield plan",
+          "text": "Katana runs on Higgsfield credits and doesn't work on a free account. Sign up at higgsfield.ai."
+        },
+        {
+          "title": "Add Higgsfield to Claude",
+          "text": "In Claude, go to Settings → Connectors → Add custom connector. Name it `Higgsfield`, paste `https://mcp.higgsfield.ai/mcp`, then sign in to Higgsfield. No API key needed."
+        },
+        {
+          "title": "Start a new chat and send prompt 1",
+          "text": "It runs the kinetic typography preset. Claude asks you to upload what goes in the video: your product, logo, characters, clothes or props (up to 5 photos)."
+        },
+        {
+          "title": "Upload your images, then send prompt 2",
+          "text": "That's the style brief. Change the colours, words or brand to fit yours."
+        },
+        {
+          "title": "Check the credit cost and confirm",
+          "text": "Claude shows the cost on a card before anything is made. Your video appears in the chat with a download button and is saved to Assets on higgsfield.ai."
+        },
+        {
+          "title": "Ask for changes in the same chat",
+          "text": "Use the tweak lines below. Timing and cut fixes don't use credits."
+        }
+      ],
+      "extra": {
+        "summary": "The connector address, to copy",
+        "code": "https://mcp.higgsfield.ai/mcp"
+      }
+    },
+    {
+      "type": "prompts",
+      "id": "prompts",
+      "tab": "Prompts",
+      "eyebrow": "Copy and paste",
+      "title": "The *2 prompts*",
+      "intro": "Send them in order, in the same chat.",
+      "items": [
+        {
+          "tag": "01",
+          "title": "Run the preset",
+          "note": "Starts the Katana kinetic typography preset",
+          "text": "/katana/higgsfield-katana-kinetic-typography-edit\n\nAsk me to upload what I want in this video first: my characters, products, clothes, props or anything else. Then create the preset video with them."
+        },
+        {
+          "tag": "02",
+          "title": "The style brief",
+          "note": "Change any part of it: the colours, the words, the ending",
+          "text": "Create a kinetic typography promo using the supplied reference images and brand information. Follow the reference's rapid sequence of oversized condensed headlines, stacked words, isolated punctuation, and small supporting text. Alternate near-black backgrounds with warm off-white and ==vivid red== panels. Animate lettering through punchy scale changes, lateral sweeps, stretching, rotation, and motion blur. Interleave framed interface or reference-image inserts, simple red geometric forms, thin glowing lines, and subtle particles. Keep the composition bold and tightly timed, then resolve into a clean centered brand end card.\n\nBrand: [[your brand name, tagline and colours]]"
+        }
+      ]
+    },
+    {
+      "type": "fixes",
+      "id": "fixes",
+      "tab": "Tweaks",
+      "eyebrow": "Then fine-tune",
+      "title": "Quick *tweaks*",
+      "items": [
+        "Swap the red for my brand colour.",
+        "Make it 15 seconds.",
+        "Use these exact words in the headlines:",
+        "Show my product photos in the inserts.",
+        "End on my logo, centred.",
+        "Make the cuts faster."
+      ],
+      "tip": "Tap a line to copy it, then add your details."
+    },
+    {
+      "type": "about",
+      "id": "fine-print",
+      "tab": "Good to know",
+      "eyebrow": "Before you start",
+      "title": "The *fine print*",
+      "features": [
+        {
+          "title": "Katana costs credits",
+          "text": "It uses your Higgsfield plan's credits at normal prices. Unlimited plans don't cover it, because it runs through Claude."
+        },
+        {
+          "title": "You see the price first",
+          "text": "Claude shows the credit cost before each run. Nothing is spent until you confirm."
+        },
+        {
+          "title": "Changes can be free",
+          "text": "Fixing timing or cuts doesn't use credits. A brand-new generation does."
+        },
+        {
+          "title": "Label it when you post",
+          "text": "It's AI-made, so turn on the AI label on Instagram."
+        }
+      ],
+      "needs": [
+        "Needs a Claude account that can add custom connectors",
+        "Needs a paid Higgsfield plan with credits",
+        "Works in Claude on the web or in the desktop app"
+      ]
+    }
+  ]
+}
