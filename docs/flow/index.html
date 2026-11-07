@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ruflo: an AI agent team for Claude Code</title>
+<meta name="description" content="Ruflo, formerly Claude Flow: the free, open-source tool that adds planning, coding, testing and security agents to Claude Code. Link, one-line install and a first prompt.">
+<meta property="og:title" content="Ruflo: an AI agent team for Claude Code">
+<meta property="og:description" content="Ruflo, formerly Claude Flow: the free, open-source tool that adds planning, coding, testing and security agents to Claude Code. Link, one-line install and a first prompt.">
+<meta property="og:image" content="https://imrshn.github.io/reel-kits/assets/og-flow.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Ruflo: an AI agent team for Claude Code">
+<meta property="og:url" content="https://imrshn.github.io/reel-kits/flow/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#E6EFFF">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../assets/kit.css">
+</head>
+<body data-url="https://imrshn.github.io/reel-kits/flow/">
+<nav class="tabs" aria-label="Sections">
+  <a class="home" href="../" aria-label="All kits"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/></svg></a><a href="#link" class="on">The link</a><a href="#setup">Set it up</a><a href="#prompt">First prompt</a><a href="#fine-print">Good to know</a>
+</nav>
+<main class="wrap">
+<section id="top" class="sec hero">
+  <div><span class="label">Tool guide · Comment <span class="kw">FLOW</span></span>
+  <h1>Give Claude Code a <em>team of 100+ agents</em></h1></div>
+</section>
+<section id="link" class="sec" aria-labelledby="link-h"><div><span class="label">From the reel</span><h2 id="link-h">Meet <em>Ruflo</em></h2><p class="sub">Free and open source (MIT). Tap Open to see it on GitHub.</p></div>
+<div class="tools">
+<article class="tool">
+  <div class="top"><span class="ic" aria-hidden="true">🌊</span><div><h3>Ruflo</h3><span class="price">Formerly Claude Flow · 81K ★</span></div></div>
+  <p>Adds 100+ specialised agents to Claude Code. They plan, write code, run tests and check security together, share memory and learn from each task.</p>
+  <div class="acts"><a class="btn sm" href="https://github.com/ruvnet/ruflo" target="_blank" rel="noopener">Open <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a></div>
+</article>
+</div></section>
+<section id="setup" class="sec" aria-labelledby="setup-h"><div><span class="label">About 2 minutes</span><h2 id="setup-h">The <em>setup</em></h2></div>
+<ol class="steps">
+<li><span class="n">1</span><div><b>Install Node.js 20 or newer</b><span>Get it from nodejs.org if you don&#x27;t have it. Check with <code class="in">node -v</code> in a terminal.</span></div></li>
+<li><span class="n">2</span><div><b>Open your project folder in a terminal</b><span>Use the folder you want the agents to work on.</span></div></li>
+<li><span class="n">3</span><div><b>Run <code class="in">npx ruflo@latest init</code></b><span>It adds Ruflo&#x27;s agents, memory and tools to that folder.</span></div></li>
+<li><span class="n">4</span><div><b>Restart Claude Code in that folder</b><span>Claude Code picks Ruflo up when it starts. Then give it a real task, like the prompt in the next tab.</span></div></li>
+</ol>
+<details class="extra"><summary>Only want the Claude Code plugin? Run these inside Claude Code</summary><pre class="tree">/plugin marketplace add ruvnet/ruflo
+/plugin install ruflo-core@ruflo
+/plugin install ruflo-swarm@ruflo</pre></details>
+</section>
+<section id="prompt" class="sec" aria-labelledby="prompt-h"><div><span class="label">Try it first</span><h2 id="prompt-h">Your first <em>task</em></h2><p class="sub">Paste this into Claude Code inside your project after the setup. It comes from Ruflo&#x27;s own README.</p></div>
+<article class="card">
+  <div class="ctop"><span class="chip">01 · First run</span><button class="btn sm" type="button" data-copy-target="p1">Copy prompt</button></div>
+  <h3>Review a project with an agent team</h3>
+<pre class="prompt short" id="p1">Use a ruflo swarm to review this repo: find the riskiest module, write tests for it, and summarise what you changed.</pre>
+  
+</article>
+</section>
+<section id="fine-print" class="sec" aria-labelledby="fine-print-h"><div><span class="label">Before you start</span><h2 id="fine-print-h">The <em>fine print</em></h2></div>
+<div class="does"><div><b>The savings numbers are Ruflo&#x27;s own</b><span>Its user guide says smart routing can cut API costs by up to 75% and stretch your Claude Code plan up to 2.5 times. Simple edits skip the AI entirely. Your results depend on the task.</span></div><div><b>Start small</b><span>Run it on a copy of a project or a fresh folder first, and read what it changed before you keep it.</span></div><div><b>Plugins run with your permissions</b><span>Ruflo&#x27;s mods aren&#x27;t sandboxed, so its README asks you to read their code before installing.</span></div><div><b>Star counts change</b><span>Stars were counted on 7 Nov 2026.</span></div></div>
+<ul class="needs"><li>Claude Code (a paid Claude plan)</li><li>Node.js 20 or newer</li><li>Mac, Windows or Linux</li></ul>
+</section>
+<footer>
+  <span>Found this useful? Send it to a friend who'd use it.</span>
+  <span><a href="../">More free kits</a></span>
+  <span class="ver">Guide v1.0 · Nov 2026</span>
+</footer>
+</main>
+<div class="dock"><div class="in"><button class="btn" type="button" data-copy="Review a project with an agent team
+Use a ruflo swarm to review this repo: find the riskiest module, write tests for it, and summarise what you changed."><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"/></svg>Copy the prompt</button><button class="btn light" type="button" data-share="Ruflo: an AI agent team for Claude Code"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3m0 0L7 8m5-5 5 5"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg>Share</button></div></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="../assets/kit.js"></script>
+</body>
+</html>
