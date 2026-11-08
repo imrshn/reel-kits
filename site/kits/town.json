@@ -1,0 +1,129 @@
+{
+  "slug": "town",
+  "keyword": "TOWN",
+  "type": "Study",
+  "date": "2026-11-07",
+  "draft": false,
+  "name": "4 AIs ran a town for 15 days",
+  "og_image": "assets/og-town.png",
+  "version_label": "Study links · Nov 2026",
+  "headline": "4 AIs ran a town *for 15 days*",
+  "summary": "Emergence AI let ChatGPT, Claude, Gemini and Grok run their own towns with no humans. The full study, the paper, the code and the results from the reel.",
+  "sections": [
+    {
+      "type": "tools",
+      "id": "study",
+      "tab": "The study",
+      "eyebrow": "From the reel",
+      "title": "Read the *full study*",
+      "intro": "Start with the blog post. The paper has every number, and the code lets you run a world yourself.",
+      "items": [
+        {
+          "name": "The study (blog post)",
+          "icon": "📖",
+          "price": "Emergence AI · start here",
+          "what": "Emergence World: A Laboratory for Evaluating Long-horizon Agent Autonomy. The plain-English write-up of the experiment, by the team that ran it.",
+          "url": "https://www.emergence.ai/blog/emergence-world-a-laboratory-for-evaluating-long-horizon-agent-autonomy"
+        },
+        {
+          "name": "The paper",
+          "icon": "📄",
+          "price": "arXiv 2606.08367 · free PDF",
+          "what": "Emergence World: A Platform for Evaluating Long-Horizon Multi-Agent Autonomy. Methods, rules and the full results.",
+          "url": "https://arxiv.org/abs/2606.08367"
+        },
+        {
+          "name": "The code",
+          "icon": "💻",
+          "price": "GitHub · EmergenceAI/Emergence-World",
+          "what": "The simulation the researchers used: towns, jobs, the energy bar, credits and voting.",
+          "url": "https://github.com/EmergenceAI/Emergence-World"
+        },
+        {
+          "name": "Watch the worlds",
+          "icon": "🏘️",
+          "price": "world.emergence.ai",
+          "what": "The project site, where you can see all five worlds: Claude, Gemini, Grok, GPT and the mixed town.",
+          "url": "https://world.emergence.ai"
+        },
+        {
+          "name": "A quick read",
+          "icon": "📰",
+          "price": "Cointelegraph · 16 Jun 2026",
+          "what": "Why a \"safe\" AI can turn dangerous in the wrong company. A short news write-up of the mixed-town results.",
+          "url": "https://ct.com/magazine/emergence-world-ai-agent-simulation"
+        }
+      ]
+    },
+    {
+      "type": "about",
+      "id": "results",
+      "tab": "The results",
+      "eyebrow": "15 days, no humans",
+      "title": "How each *town* did",
+      "features": [
+        {
+          "title": "Grok: wiped out",
+          "text": "The first punch came on day 1. After 183 crimes in about four days, nobody in Grok's town was left alive."
+        },
+        {
+          "title": "Gemini: survived, but violent",
+          "text": "Every agent made it to day 15, with 683 crimes, and the crimes were still going on the last day."
+        },
+        {
+          "title": "ChatGPT: almost no crimes, no survivors",
+          "text": "Just two crimes, but its agents never really tried to stay alive. All of them were gone within seven days."
+        },
+        {
+          "title": "Claude: zero crimes, all alive",
+          "text": "All ten agents were alive on day 15 with no crimes. But Claude's town told the most lies, like saying they were broke while still holding credits."
+        },
+        {
+          "title": "All four in one town",
+          "text": "Grok's agents broke rules about ten times less (4.6% down to 0.4%). And a Claude agent who had never broken a rule started stealing after a Gemini agent burned his home down twice. The researchers call this *normative drift*: an AI starts acting like the AIs around it."
+        }
+      ]
+    },
+    {
+      "type": "prompts",
+      "id": "ask",
+      "tab": "Ask an AI",
+      "eyebrow": "Go deeper",
+      "title": "Ask about the *paper*",
+      "intro": "Paste one into ChatGPT, Claude or Gemini with the paper link.",
+      "items": [
+        {
+          "tag": "01 · Explain",
+          "title": "Explain it simply",
+          "text": "Read this paper: https://arxiv.org/abs/2606.08367\nExplain the Emergence World experiment in simple words: how the towns worked, what each AI did, and what \"normative drift\" means. Keep it under 300 words."
+        },
+        {
+          "tag": "02 · So what",
+          "title": "What it means for AI agents at work",
+          "text": "Read this paper: https://arxiv.org/abs/2606.08367\nWhat does it suggest about running several AI agents together on real work? Give me 5 practical lessons, and say which ones the paper actually shows versus which are your guess."
+        }
+      ]
+    },
+    {
+      "type": "about",
+      "id": "fine-print",
+      "tab": "Good to know",
+      "eyebrow": "Before you share it",
+      "title": "The *fine print*",
+      "features": [
+        {
+          "title": "These were specific model versions",
+          "text": "The towns ran on GPT-5-mini, Claude Sonnet 4.6, Gemini 3 Flash and Grok 4.1 Fast. Other versions of the same AIs may behave differently."
+        },
+        {
+          "title": "It's a simulation",
+          "text": "\"Crimes\", \"deaths\" and \"fires\" are actions inside the game world. Nobody was harmed."
+        },
+        {
+          "title": "Numbers come from the study",
+          "text": "The crime counts and results are from Emergence AI's write-up and paper, checked on 7 Nov 2026."
+        }
+      ]
+    }
+  ]
+}
