@@ -2,6 +2,7 @@
 """Zip every kit in kits/<name>/ into dist/<zip_name>, inside a top folder named by kit.json."""
 import json
 import os
+import subprocess
 import sys
 import zipfile
 from pathlib import Path
@@ -11,22 +12,33 @@ SKIP_DIRS = {".venv", "node_modules", "__pycache__", ".work"}
 SKIP_FILES = {"kit.json", ".DS_Store"}
 
 
+def kit_files(kit_dir: Path) -> list[Path]:
+    """Files tracked by git (so local models, renders and checks never ship); plain walk if git isn't there."""
+    try:
+        r = subprocess.run(["git", "ls-files", "-z", "--", str(kit_dir)], cwd=ROOT, capture_output=True, check=True)
+        files = [ROOT / f for f in r.stdout.decode().split("\0") if f]
+        if files:
+            return sorted(p for p in files if p.name not in SKIP_FILES and p.exists())
+    except Exception:  # noqa: BLE001
+        pass
+    found = []
+    for root, dirs, files in os.walk(kit_dir):
+        dirs[:] = sorted(d for d in dirs if d not in SKIP_DIRS)
+        found += [Path(root) / f for f in sorted(files) if f not in SKIP_FILES]
+    return found
+
+
 def build(kit_dir: Path, dist: Path) -> Path:
     meta = json.loads((kit_dir / "kit.json").read_text())
     out = dist / meta["zip_name"]
     top = meta["zip_folder"]
     with zipfile.ZipFile(out, "w", zipfile.ZIP_DEFLATED) as z:
-        for root, dirs, files in os.walk(kit_dir):
-            dirs[:] = sorted(d for d in dirs if d not in SKIP_DIRS)
-            for f in sorted(files):
-                if f in SKIP_FILES:
-                    continue
-                p = Path(root) / f
-                rel = p.relative_to(kit_dir)
-                info = zipfile.ZipInfo(f"{top}/{rel.as_posix()}", date_time=(2026, 1, 1, 0, 0, 0))
-                info.external_attr = (0o755 if p.suffix == ".py" else 0o644) << 16
-                info.compress_type = zipfile.ZIP_DEFLATED
-                z.writestr(info, p.read_bytes())
+        for p in kit_files(kit_dir):
+            rel = p.relative_to(kit_dir)
+            info = zipfile.ZipInfo(f"{top}/{rel.as_posix()}", date_time=(2026, 1, 1, 0, 0, 0))
+            info.external_attr = (0o755 if p.suffix == ".py" else 0o644) << 16
+            info.compress_type = zipfile.ZIP_DEFLATED
+            z.writestr(info, p.read_bytes())
     return out
 
 

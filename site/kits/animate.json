@@ -1,0 +1,117 @@
+{
+  "slug": "animate",
+  "keyword": "ANIMATE",
+  "type": "Starter kit",
+  "date": "2026-11-07",
+  "draft": false,
+  "name": "AI Reel Maker",
+  "files": "animate",
+  "og_image": "assets/og-animate.png",
+  "version_label": "Kit v1.0 · Nov 2026",
+  "headline": "Make *animated reels* with Claude Code",
+  "summary": "One line in, a finished animated reel out: script, voiceover, motion graphics, word-timed captions and a self-check of every frame.",
+  "sections": [
+    {
+      "type": "steps",
+      "id": "steps",
+      "tab": "Steps",
+      "eyebrow": "From the reel",
+      "title": "The *workflow*",
+      "items": [
+        {
+          "title": "Get the Claude desktop app",
+          "text": "Skip the browser. Download it from claude.ai/download and sign in. Claude Code needs a paid plan (Pro or higher)."
+        },
+        {
+          "title": "Download the kit and unzip it",
+          "text": "You get a folder called AI Video Editor. Put it on your Desktop. Your skill files and every finished reel live here."
+        },
+        {
+          "title": "Start a Claude Code chat on that folder",
+          "text": "Code tab → new session → choose Local → select the AI Video Editor folder."
+        },
+        {
+          "title": "Type `check my setup`",
+          "text": "Claude installs what's missing inside the folder (no password) and tests itself on a sample reel. Click Allow when it asks. About 10 minutes the first time."
+        },
+        {
+          "title": "Type what the reel is about, in one line",
+          "text": "For example: `make a reel about why airplane food tastes so bland`. It writes the script, records the voiceover, animates every scene, times the captions and checks its own frames."
+        },
+        {
+          "title": "Tell it what to change",
+          "text": "Like you would a video editor. Every change saves a new version. See the fix lines."
+        }
+      ]
+    },
+    {
+      "type": "prompts",
+      "id": "prompts",
+      "tab": "Prompts",
+      "eyebrow": "Copy and paste",
+      "title": "The *prompts*",
+      "intro": "Type these in the Claude Code chat inside the AI Video Editor folder.",
+      "items": [
+        {
+          "tag": "01 · Setup",
+          "title": "Check my setup",
+          "text": "Check my setup. Install anything that's missing inside this folder, then test it by rendering the sample reel. Tell me in plain words when it's ready."
+        },
+        {
+          "tag": "02 · Make",
+          "title": "Make a reel from one line",
+          "text": "Make a reel about [[your topic in one line]]. About [[30]] seconds. End with: [[Follow for more / Comment KEYWORD and I'll send you ...]]"
+        },
+        {
+          "tag": "03 · Own voice",
+          "title": "Use your own voice (optional)",
+          "text": "Use my recording for the voice: [[drag your audio file here]]. Match the script to what I said, then re-time the captions and render again."
+        }
+      ]
+    },
+    {
+      "type": "fixes",
+      "id": "fixes",
+      "tab": "Fix lines",
+      "eyebrow": "After the first render",
+      "title": "Fix *lines*",
+      "items": [
+        "Make the hook punchier.",
+        "Speak a bit faster.",
+        "Use a female voice.",
+        "The third scene feels empty, show the numbers.",
+        "Make the captions bigger.",
+        "Add a comment keyword at the end: GUIDE.",
+        "This didn't work, fix it.",
+        "Save this as my style."
+      ],
+      "tip": "Every change saves a new version (v2, v3...), so you never lose one."
+    },
+    {
+      "type": "about",
+      "id": "about",
+      "tab": "About",
+      "eyebrow": "About the kit",
+      "title": "What it *does*",
+      "features": [
+        { "title": "Writes the script", "text": "Hook first, facts checked" },
+        { "title": "Records the voice", "text": "Free voice on your computer, or your own" },
+        { "title": "Animates every scene", "text": "10 motion-graphic scene types" },
+        { "title": "Word-timed captions", "text": "Synced to the voice" },
+        { "title": "Checks its own frames", "text": "Before you see it" },
+        { "title": "Ready to post", "text": "1080x1920 MP4, sound effects, Instagram loudness" }
+      ],
+      "needs": [
+        "Needs a Mac or Windows computer and the Claude desktop app (claude.ai/download)",
+        "Needs a paid Claude plan (Pro or higher) for Claude Code",
+        "Downloads about 400 MB the first time. Everything installs inside the folder. Delete the folder and it's gone.",
+        "Optional: your own Fish Audio or ElevenLabs voice (your API key) or a recording of your own voice"
+      ]
+    }
+  ],
+  "download": {
+    "url": "https://github.com/imrshn/reel-kits/releases/download/animate/animate-kit.zip",
+    "label": "Download full kit",
+    "laptop_only": true
+  }
+}
